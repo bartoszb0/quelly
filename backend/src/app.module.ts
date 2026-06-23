@@ -4,6 +4,7 @@ import { seconds, ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ShopsModule } from './shops/shops.module';
+import { MenuItemsModule } from './menu-items/menu-items.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { ShopsModule } from './shops/shops.module';
     PrismaModule,
     AuthModule,
     ShopsModule,
+    MenuItemsModule,
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
