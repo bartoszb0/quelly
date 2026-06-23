@@ -8,8 +8,96 @@ datasource db {
   provider = "postgresql"
 }
 
+// Account / owner
 model User {
   id        String          @id @default(uuid())
   email     String          @unique
   password  String
+  shops Shop[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// One physical stall
+model Shop {
+  id String @id @default(uuid())
+  ownerId String
+  owner User @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  name String
+  publicId String @unique @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  menuItems MenuItem[]
+  shifts    Shift[]
+  orders    Order[]
+
+  @@index([ownerId])
+}
+
+// Menu
+model MenuItem {
+  id         String      @id @default(uuid())
+  shopId     String
+  shop       Shop        @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  name       String
+  sortOrder  Int         @default(0)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  orderItems OrderItem[]
+
+  @@index([shopId])
+}
+
+// Service session: makes order numbers reset cleanly
+model Shift {
+  id        String    @id @default(uuid())
+  shopId    String
+  shop      Shop      @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  startedAt DateTime  @default(now())
+  endedAt   DateTime? // null = currently active
+  orders    Order[]
+
+  @@index([shopId])
+}
+
+// Orders
+model Order {
+  id           String      @id @default(uuid())
+  shopId       String // carried here too, so the tenant guard scopes uniformly
+  shop         Shop        @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  shiftId      String
+  shift        Shift       @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+  number       Int // the value the guest types; sequential within a shift
+  status       OrderStatus @default(QUEUED)
+  createdAt    DateTime    @default(now())
+  readyAt      DateTime? // timestamps power analytics later
+  collectedAt  DateTime?
+  items        OrderItem[]
+
+  @@unique([shiftId, number]) // numbers unique per shift, reused across shifts
+  @@index([shopId])
+  @@index([shiftId])
+}
+
+enum OrderStatus {
+  QUEUED
+  READY
+  COLLECTED
+  CANCELLED // the undo / void state
+}
+
+// ── Order line items: the join that carries data ─────────────────
+model OrderItem {
+  id           String    @id @default(uuid())
+  orderId      String
+  order        Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  // Nullable + name snapshot: a past order stays correct even if the
+  // menu item is later renamed or deleted.
+  menuItemId   String?
+  menuItem     MenuItem? @relation(fields: [menuItemId], references: [id], onDelete: SetNull)
+  nameSnapshot String
+  quantity     Int       @default(1)
+
+  @@index([orderId])
 }
