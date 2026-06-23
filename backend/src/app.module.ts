@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ShopsModule } from './shops/shops.module';
 import { MenuItemsModule } from './menu-items/menu-items.module';
+import { ShiftsModule } from './shifts/shifts.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { MenuItemsModule } from './menu-items/menu-items.module';
     AuthModule,
     ShopsModule,
     MenuItemsModule,
+    ShiftsModule,
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
