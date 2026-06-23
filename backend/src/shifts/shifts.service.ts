@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateShiftDto } from './dto/create-shift.dto';
-import { UpdateShiftDto } from './dto/update-shift.dto';
 
 @Injectable()
 export class ShiftsService {
-  create(createShiftDto: CreateShiftDto) {
+  create() {
     return 'This action adds a new shift';
   }
 
@@ -16,7 +14,7 @@ export class ShiftsService {
     return `This action returns a #${id} shift`;
   }
 
-  update(id: number, updateShiftDto: UpdateShiftDto) {
+  update(id: number) {
     return `This action updates a #${id} shift`;
   }
 
