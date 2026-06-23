@@ -1,24 +1,95 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { ShopsService } from '../shops/shops.service';
 
 @Injectable()
 export class ShiftsService {
-  create() {
-    return 'This action adds a new shift';
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly shopsService: ShopsService,
+  ) {}
+
+  async getActive(shopId: string, userId: string) {
+    await this.shopsService.findOne(shopId, userId);
+
+    return this.prisma.shift.findFirst({
+      where: {
+        shopId: shopId,
+        endedAt: null,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all shifts`;
+  async start(shopId: string, userId: string) {
+    const currentlyActive = await this.getActive(shopId, userId);
+
+    if (currentlyActive !== null)
+      throw new ConflictException('There is an active shift already');
+
+    return this.prisma.shift.create({
+      data: {
+        shopId: shopId,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} shift`;
+  async end(shopId: string, userId: string) {
+    const currentlyActive = await this.getActive(shopId, userId);
+
+    if (currentlyActive === null)
+      throw new BadRequestException('There is no active shift currently');
+
+    return this.prisma.shift.update({
+      data: {
+        endedAt: new Date(),
+      },
+      where: {
+        id: currentlyActive.id,
+      },
+    });
   }
 
-  update(id: number) {
-    return `This action updates a #${id} shift`;
+  async findAll(shopId: string, userId: string) {
+    await this.shopsService.findOne(shopId, userId);
+
+    return this.prisma.shift.findMany({
+      where: {
+        shopId: shopId,
+        endedAt: { not: null },
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} shift`;
+  // TODO return here also orders
+  async findOne(shopId: string, id: string, userId: string) {
+    await this.shopsService.findOne(shopId, userId);
+
+    const shift = await this.prisma.shift.findFirst({
+      where: {
+        shopId: shopId,
+        id: id,
+      },
+    });
+
+    if (!shift) throw new NotFoundException('Could not find this shift');
+
+    return shift;
+  }
+
+  // TODO think if this is even needed
+  async remove(shopId: string, id: string, userId: string) {
+    await this.findOne(shopId, id, userId);
+
+    await this.prisma.shift.delete({
+      where: {
+        shopId: shopId,
+        id: id,
+      },
+    });
   }
 }
