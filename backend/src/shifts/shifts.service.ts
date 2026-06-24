@@ -48,6 +48,16 @@ export class ShiftsService {
   async end(shopId: string, userId: string) {
     const currentlyActive = await this.getActiveOrThrow(shopId, userId);
 
+    await this.prisma.order.updateMany({
+      where: {
+        shiftId: currentlyActive.id,
+        status: { in: ['QUEUED', 'READY'] },
+      },
+      data: {
+        status: 'CANCELLED',
+      },
+    });
+
     return this.prisma.shift.update({
       data: {
         endedAt: new Date(),
@@ -60,6 +70,8 @@ export class ShiftsService {
 
   async findAll(shopId: string, userId: string) {
     await this.shopsService.findOne(shopId, userId);
+
+    // TODO add order count
 
     return this.prisma.shift.findMany({
       where: {
