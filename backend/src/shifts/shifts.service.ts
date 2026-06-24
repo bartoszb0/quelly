@@ -25,6 +25,13 @@ export class ShiftsService {
     });
   }
 
+  async getActiveOrThrow(shopId: string, userId: string) {
+    const shift = await this.getActive(shopId, userId);
+    if (!shift)
+      throw new BadRequestException('There is no active shift currently');
+    return shift;
+  }
+
   async start(shopId: string, userId: string) {
     const currentlyActive = await this.getActive(shopId, userId);
 
@@ -39,10 +46,7 @@ export class ShiftsService {
   }
 
   async end(shopId: string, userId: string) {
-    const currentlyActive = await this.getActive(shopId, userId);
-
-    if (currentlyActive === null)
-      throw new BadRequestException('There is no active shift currently');
+    const currentlyActive = await this.getActiveOrThrow(shopId, userId);
 
     return this.prisma.shift.update({
       data: {
