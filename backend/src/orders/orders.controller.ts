@@ -31,14 +31,36 @@ export class OrdersController {
     return this.ordersService.create(shopId, createOrderDto, user.id);
   }
 
+  @Post(':id/ready')
+  markReady(
+    @Param('shopId', ParseUUIDPipe) shopId: UUID,
+    @Param('id', ParseUUIDPipe) id: UUID,
+    @CurrentUser() user: UserPayload,
+  ) {
+    return this.ordersService.markReady(shopId, id, user.id);
+  }
+
+  @Post(':id/collected')
+  markCollected(
+    @Param('shopId', ParseUUIDPipe) shopId: UUID,
+    @Param('id', ParseUUIDPipe) id: UUID,
+    @CurrentUser() user: UserPayload,
+  ) {
+    return this.ordersService.markCollected(shopId, id, user.id);
+  }
+
+  @Post(':id/cancelled')
+  markCancelled(
+    @Param('shopId', ParseUUIDPipe) shopId: UUID,
+    @Param('id', ParseUUIDPipe) id: UUID,
+    @CurrentUser() user: UserPayload,
+  ) {
+    return this.ordersService.markCancelled(shopId, id, user.id);
+  }
+
   @Get()
   findAll() {
     return this.ordersService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ordersService.findOne(+id);
   }
 
   @Patch(':id')

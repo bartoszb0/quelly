@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { ShiftsService } from '../shifts/shifts.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -71,8 +75,69 @@ export class OrdersService {
     return `This action returns all orders`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findOrderInActiveShift(shopId: string, id: string, userId: string) {
+    const shift = await this.shiftsService.getActiveOrThrow(shopId, userId);
+
+    const order = await this.prisma.order.findFirst({
+      where: {
+        shiftId: shift.id,
+        id: id,
+      },
+    });
+
+    if (!order) throw new NotFoundException('Could not find this order');
+
+    return order;
+  }
+
+  async markReady(shopId: string, id: string, userId: string) {
+    const order = await this.findOrderInActiveShift(shopId, id, userId);
+
+    if (order.status !== 'QUEUED')
+      throw new BadRequestException('Status is not valid');
+
+    return this.prisma.order.update({
+      where: {
+        id: order.id,
+      },
+      data: {
+        status: 'READY',
+        readyAt: new Date(),
+      },
+    });
+  }
+
+  async markCollected(shopId: string, id: string, userId: string) {
+    const order = await this.findOrderInActiveShift(shopId, id, userId);
+
+    if (order.status !== 'READY')
+      throw new BadRequestException('Status is not valid');
+
+    return this.prisma.order.update({
+      where: {
+        id: order.id,
+      },
+      data: {
+        status: 'COLLECTED',
+        collectedAt: new Date(),
+      },
+    });
+  }
+
+  async markCancelled(shopId: string, id: string, userId: string) {
+    const order = await this.findOrderInActiveShift(shopId, id, userId);
+
+    if (order.status === 'COLLECTED' || order.status === 'CANCELLED')
+      throw new BadRequestException('Status is not valid');
+
+    return this.prisma.order.update({
+      where: {
+        id: order.id,
+      },
+      data: {
+        status: 'CANCELLED',
+      },
+    });
   }
 
   update(id: number, updateOrderDto: UpdateOrderDto) {
