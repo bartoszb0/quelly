@@ -6,7 +6,6 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { ShiftsService } from '../shifts/shifts.service';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 
 @Injectable()
 export class OrdersService {
@@ -69,10 +68,6 @@ export class OrdersService {
       },
       include: { items: true },
     });
-  }
-
-  findAll() {
-    return `This action returns all orders`;
   }
 
   async findOrderInActiveShift(shopId: string, id: string, userId: string) {
@@ -138,13 +133,5 @@ export class OrdersService {
         status: 'CANCELLED',
       },
     });
-  }
-
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} order`;
   }
 }

@@ -1,11 +1,8 @@
 import {
   Body,
   Controller,
-  Delete,
-  Get,
   Param,
   ParseUUIDPipe,
-  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -14,7 +11,6 @@ import { JwtGuard } from '../auth/guards/jwt.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import type { UserPayload } from '../common/types/user-payload.type';
 import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
 import { OrdersService } from './orders.service';
 
 @Controller('/shops/:shopId/orders')
@@ -56,20 +52,5 @@ export class OrdersController {
     @CurrentUser() user: UserPayload,
   ) {
     return this.ordersService.markCancelled(shopId, id, user.id);
-  }
-
-  @Get()
-  findAll() {
-    return this.ordersService.findAll();
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.ordersService.update(+id, updateOrderDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ordersService.remove(+id);
   }
 }
