@@ -7,5 +7,6 @@ import { ShiftsService } from './shifts.service';
   imports: [ShopsModule],
   controllers: [ShiftsController],
   providers: [ShiftsService],
+  exports: [ShiftsService],
 })
 export class ShiftsModule {}
