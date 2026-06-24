@@ -64,7 +64,6 @@ export class ShiftsService {
     return this.prisma.shift.findMany({
       where: {
         shopId: shopId,
-        endedAt: { not: null },
       },
     });
   }
