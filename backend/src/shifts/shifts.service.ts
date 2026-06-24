@@ -69,7 +69,6 @@ export class ShiftsService {
     });
   }
 
-  // TODO return here also orders
   async findOne(shopId: string, id: string, userId: string) {
     await this.shopsService.findOne(shopId, userId);
 
@@ -78,6 +77,7 @@ export class ShiftsService {
         shopId: shopId,
         id: id,
       },
+      include: { orders: true },
     });
 
     if (!shift) throw new NotFoundException('Could not find this shift');
