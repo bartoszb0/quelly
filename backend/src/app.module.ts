@@ -6,6 +6,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ShopsModule } from './shops/shops.module';
 import { MenuItemsModule } from './menu-items/menu-items.module';
 import { ShiftsModule } from './shifts/shifts.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ShiftsModule } from './shifts/shifts.module';
     ShopsModule,
     MenuItemsModule,
     ShiftsModule,
+    OrdersModule,
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
