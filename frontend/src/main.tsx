@@ -11,7 +11,6 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: (failureCount, error) => {
-        // don't retry 4xx — the answer won't change
         if (
           error instanceof AxiosError &&
           error.response?.status &&
@@ -19,7 +18,6 @@ const queryClient = new QueryClient({
         ) {
           return false;
         }
-        // retry server/network errors up to 2 times
         return failureCount < 2;
       },
     },
