@@ -1,14 +1,12 @@
 import { getShop } from "@/api/public";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { QueryError } from "@/components/common/QueryError";
 import { isValidUuid } from "@/lib/validation";
 import { useQuery } from "@tanstack/react-query";
 import { Navigate, useParams } from "react-router-dom";
-
-type ShopPageQuery = {
-  name: string;
-  publicId: string;
-  hasOpenShift: boolean;
-};
+import NoShift from "./components/NoShift";
+import NumberForm from "./components/NumberForm";
+import ShopName from "./components/ShopName";
 
 export default function GuestShopPage() {
   const { shopPublicId } = useParams();
@@ -17,14 +15,24 @@ export default function GuestShopPage() {
     return <Navigate to="/not-found" replace />;
   }
 
-  const { isPending, error, data } = useQuery<ShopPageQuery>({
+  const { isPending, error, data } = useQuery({
     queryKey: ["shopPage", shopPublicId],
     queryFn: () => getShop(shopPublicId),
   });
 
-  if (isPending) return "Loading...";
+  if (isPending) return <LoadingSpinner />;
 
   if (error) return <QueryError error={error} />;
 
-  return <div>{data.name}</div>;
+  return (
+    <div className="flex flex-col">
+      {data.name}
+      <ShopName name={data.name} />
+      {data.hasOpenShift ? (
+        <NumberForm shopPublicId={shopPublicId} />
+      ) : (
+        <NoShift />
+      )}
+    </div>
+  );
 }

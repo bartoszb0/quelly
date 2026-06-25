@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-import GuestOrderPage from "./pages/GuestOrderPage";
-import GuestShopPage from "./pages/GuestShopPage";
+import GuestOrderPage from "./pages/guest-order/GuestOrderPage";
+import GuestShopPage from "./pages/guest-shop/GuestShopPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -19,7 +19,10 @@ function App() {
 
       {/* Public pages */}
       <Route path="/s/:shopPublicId" element={<GuestShopPage />} />
-      <Route path="/s/:shopPublicId/:number" element={<GuestOrderPage />} />
+      <Route
+        path="/s/:shopPublicId/:orderNumber"
+        element={<GuestOrderPage />}
+      />
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
