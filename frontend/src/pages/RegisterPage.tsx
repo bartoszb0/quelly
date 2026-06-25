@@ -24,7 +24,7 @@ export default function RegisterPage() {
     try {
       await signUp(values);
       toast.success("Account created");
-      navigate("/", { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch (e) {
       toastApiError(e, { 409: "That email is already registered" });
     }

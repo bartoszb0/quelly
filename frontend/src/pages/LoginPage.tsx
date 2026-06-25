@@ -28,7 +28,7 @@ export default function LoginPage() {
   const onSubmit = async (values: LoginInput) => {
     try {
       await signIn(values);
-      navigate("/", { replace: true });
+      navigate("/dashboard", { replace: true });
     } catch (e) {
       toastApiError(e, { 401: "Invalid email or password" });
     }
