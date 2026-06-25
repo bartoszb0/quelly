@@ -1,4 +1,6 @@
 import { Route, Routes } from "react-router-dom";
+import { ProtectedRoute } from "./components/common/ProtectedRoute";
+import DashboardPage from "./pages/dashboard/DashboardPage";
 import GuestOrderPage from "./pages/guest-order/GuestOrderPage";
 import GuestShopPage from "./pages/guest-shop/GuestShopPage";
 import HomePage from "./pages/HomePage";
@@ -14,8 +16,10 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
 
-      {/* Guarded pages */}
-      {/* <Router path='/shop'/> */}
+      {/* Guarded dashboard */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Route>
 
       {/* Public pages */}
       <Route path="/s/:shopPublicId" element={<GuestShopPage />} />
