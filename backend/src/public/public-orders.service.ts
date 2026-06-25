@@ -35,6 +35,12 @@ export class PublicOrdersService {
         number: true,
         status: true,
         createdAt: true,
+        items: {
+          select: {
+            nameSnapshot: true,
+            quantity: true,
+          },
+        },
       },
     });
 
