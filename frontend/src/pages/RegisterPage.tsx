@@ -6,12 +6,14 @@ import { Label } from "@/components/ui/label";
 import { toastApiError } from "@/lib/toastApiError";
 import { registerSchema, type RegisterInput } from "@/schemas/registerSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -22,7 +24,8 @@ export default function RegisterPage() {
 
   const onSubmit = async (values: RegisterInput) => {
     try {
-      await signUp(values);
+      const user = await signUp(values);
+      queryClient.setQueryData(["me"], user);
       toast.success("Account created");
       navigate("/dashboard", { replace: true });
     } catch (e) {

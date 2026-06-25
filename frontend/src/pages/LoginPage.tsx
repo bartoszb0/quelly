@@ -12,11 +12,13 @@ import { Label } from "@/components/ui/label";
 import { toastApiError } from "@/lib/toastApiError";
 import { loginSchema, type LoginInput } from "@/schemas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -27,7 +29,8 @@ export default function LoginPage() {
 
   const onSubmit = async (values: LoginInput) => {
     try {
-      await signIn(values);
+      const user = await signIn(values);
+      queryClient.setQueryData(["me"], user);
       navigate("/dashboard", { replace: true });
     } catch (e) {
       toastApiError(e, { 401: "Invalid email or password" });
