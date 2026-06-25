@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { RealtimeGateway } from '../realtime/realtime.gateway';
 import { ShiftsService } from '../shifts/shifts.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 
@@ -12,6 +13,7 @@ export class OrdersService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly shiftsService: ShiftsService,
+    private readonly realtimeGateway: RealtimeGateway,
   ) {}
 
   private async getNextNumber(shiftId: string) {
@@ -78,6 +80,13 @@ export class OrdersService {
         shiftId: shift.id,
         id: id,
       },
+      include: {
+        shop: {
+          select: {
+            publicId: true,
+          },
+        },
+      },
     });
 
     if (!order) throw new NotFoundException('Could not find this order');
@@ -91,7 +100,7 @@ export class OrdersService {
     if (order.status !== 'QUEUED')
       throw new BadRequestException('Status is not valid');
 
-    return this.prisma.order.update({
+    const updatedOrder = await this.prisma.order.update({
       where: {
         id: order.id,
       },
@@ -100,6 +109,10 @@ export class OrdersService {
         readyAt: new Date(),
       },
     });
+
+    this.realtimeGateway.notifyQueueChange(order.shop.publicId);
+
+    return updatedOrder;
   }
 
   async markCollected(shopId: string, id: string, userId: string) {
@@ -108,7 +121,7 @@ export class OrdersService {
     if (order.status !== 'READY')
       throw new BadRequestException('Status is not valid');
 
-    return this.prisma.order.update({
+    const updatedOrder = await this.prisma.order.update({
       where: {
         id: order.id,
       },
@@ -117,6 +130,10 @@ export class OrdersService {
         collectedAt: new Date(),
       },
     });
+
+    this.realtimeGateway.notifyQueueChange(order.shop.publicId);
+
+    return updatedOrder;
   }
 
   async markCancelled(shopId: string, id: string, userId: string) {
@@ -125,7 +142,7 @@ export class OrdersService {
     if (order.status === 'COLLECTED' || order.status === 'CANCELLED')
       throw new BadRequestException('Status is not valid');
 
-    return this.prisma.order.update({
+    const updatedOrder = await this.prisma.order.update({
       where: {
         id: order.id,
       },
@@ -133,5 +150,9 @@ export class OrdersService {
         status: 'CANCELLED',
       },
     });
+
+    this.realtimeGateway.notifyQueueChange(order.shop.publicId);
+
+    return updatedOrder;
   }
 }
