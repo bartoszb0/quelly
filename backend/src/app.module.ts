@@ -6,6 +6,7 @@ import { MenuItemsModule } from './menu-items/menu-items.module';
 import { OrdersModule } from './orders/orders.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PublicModule } from './public/public.module';
+import { RealtimeModule } from './realtime/realtime.module';
 import { ShiftsModule } from './shifts/shifts.module';
 import { ShopsModule } from './shops/shops.module';
 
@@ -19,6 +20,7 @@ import { ShopsModule } from './shops/shops.module';
     ShiftsModule,
     OrdersModule,
     PublicModule,
+    RealtimeModule,
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
