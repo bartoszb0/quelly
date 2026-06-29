@@ -16,3 +16,10 @@ export const createShop = async (body: ShopInput) => {
   const res = await api.post("/shops", body);
   return res.data;
 };
+
+export const getQrCode = async (shopId: string): Promise<Blob> => {
+  const res = await api.get<Blob>(`/shops/${shopId}/qr`, {
+    responseType: "blob",
+  });
+  return res.data;
+};
