@@ -3,12 +3,14 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
   HttpCode,
   HttpStatus,
   Param,
   ParseUUIDPipe,
   Patch,
   Post,
+  StreamableFile,
   UseGuards,
 } from '@nestjs/common';
 import type { UUID } from 'crypto';
@@ -43,6 +45,17 @@ export class ShopsController {
     @CurrentUser() user: UserPayload,
   ) {
     return this.shopsService.findOne(id, user.id);
+  }
+
+  @Get(':id/qr')
+  @Header('Content-Type', 'image/png')
+  @Header('Content-Disposition', 'attachment; filename="quelly-qr.png"')
+  async getQrCode(
+    @Param('id', ParseUUIDPipe) id: UUID,
+    @CurrentUser() user: UserPayload,
+  ) {
+    const png = await this.shopsService.getQrCode(id, user.id);
+    return new StreamableFile(png);
   }
 
   @Patch(':id')

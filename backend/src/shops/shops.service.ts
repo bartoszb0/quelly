@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import QRCode from 'qrcode';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
@@ -33,6 +34,14 @@ export class ShopsService {
     if (!shop) throw new NotFoundException('Could not find this shop');
 
     return shop;
+  }
+
+  async getQrCode(id: string, userId: string): Promise<Buffer> {
+    const shop = await this.findOne(id, userId);
+
+    const guestUrl = `${process.env.FRONTEND_URL}/s/${shop.publicId}`;
+
+    return QRCode.toBuffer(guestUrl, { width: 512, margin: 2 });
   }
 
   async update(id: string, updateShopDto: UpdateShopDto, userId: string) {
