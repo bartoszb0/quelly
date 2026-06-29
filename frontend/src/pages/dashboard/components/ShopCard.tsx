@@ -1,8 +1,8 @@
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import type { Shop } from "@/types/Shop";
 import { useNavigate } from "react-router-dom";
-import type { TemporaryShop } from "./ShopList";
 
-export default function ShopCard({ shop }: { shop: TemporaryShop }) {
+export default function ShopCard({ shop }: { shop: Shop }) {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
