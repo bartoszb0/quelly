@@ -1,0 +1,40 @@
+import { Button } from "@/components/ui/button";
+import type { Shop } from "@/types/Shop";
+import { Play } from "lucide-react";
+import MenuItemsCard from "./MenuItemsCard";
+import PastShiftsCard from "./PastShiftsCard";
+import QrCodeCard from "./QrCodeCard";
+
+export default function ShopClosed({ shop }: { shop: Shop }) {
+  return (
+    <div className="mx-auto max-w-3xl px-6 py-12">
+      {/* Closed hero */}
+      <div className="flex flex-col items-center text-center">
+        <span className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm text-muted-foreground">
+          <span className="size-2 rounded-full bg-muted-foreground/50" />
+          Shop is closed
+        </span>
+        <h2 className="mt-4 text-2xl font-semibold tracking-tight">
+          No active shift
+        </h2>
+        <p className="mt-2 max-w-sm text-sm text-muted-foreground">
+          Start a shift to begin taking orders. Guests can watch their place in
+          line the moment you do.
+        </p>
+        <Button className="mt-6 h-11 px-6 text-base">
+          <Play className="size-4" />
+          Start shift
+        </Button>
+      </div>
+
+      {/* Setup cards */}
+      <div className="mt-12 grid gap-4 sm:grid-cols-3">
+        <MenuItemsCard shopId={shop.id} />
+
+        <PastShiftsCard shopId={shop.id} />
+
+        <QrCodeCard shopId={shop.id} />
+      </div>
+    </div>
+  );
+}
