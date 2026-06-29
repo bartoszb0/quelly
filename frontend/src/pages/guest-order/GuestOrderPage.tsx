@@ -28,7 +28,7 @@ export default function GuestOrderPage() {
 
   if (isPending) return <LoadingSpinner />;
 
-  if (error) return <QueryError error={error} />;
+  if (error) return <QueryError error={error} redirectOn404 />;
 
   return (
     <div>
