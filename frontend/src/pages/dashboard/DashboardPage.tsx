@@ -1,5 +1,5 @@
 import ProfileDropdown from "@/components/common/ProfileDropdown";
-import { Button } from "@/components/ui/button";
+import CreateShopDialog from "./components/CreateShopDialog";
 import ShopList from "./components/ShopList";
 
 export default function DashboardPage() {
@@ -8,7 +8,7 @@ export default function DashboardPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold tracking-tight">Your shops</h1>
         <div className="flex gap-2">
-          <Button>+ Add new</Button>
+          <CreateShopDialog />
           <ProfileDropdown />
         </div>
       </div>
