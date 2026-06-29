@@ -31,7 +31,7 @@ export default function ShopPage() {
   return (
     <>
       <ShopHeader name={data.name} />
-      {hasOpenShift ? <ShopOpen shop={data} /> : <ShopClosed shop={data} />}
+      {hasOpenShift ? <ShopOpen /> : <ShopClosed shop={data} />}
     </>
   );
 }
