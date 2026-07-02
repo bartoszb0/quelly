@@ -21,8 +21,6 @@ import { toast } from "sonner";
 export default function QrCustomizerDialog({ shop }: { shop: Shop }) {
   const guestUrl = `${window.location.origin}/s/${shop.publicId}`;
 
-  console.log(guestUrl);
-
   const [colorset, setColorset] = useState<QrColorset>(QR_COLORSETS[0]);
   const [preview, setPreview] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
