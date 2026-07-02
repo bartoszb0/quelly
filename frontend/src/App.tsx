@@ -1,6 +1,9 @@
 import { Route, Routes } from "react-router-dom";
 import { ProtectedRoute } from "./components/common/ProtectedRoute";
+import DashboardLayout from "./layouts/DashboardLayout";
 import DashboardPage from "./pages/dashboard/DashboardPage";
+import MenuPage from "./pages/dashboard/menu/MenuPage";
+import ShiftsPage from "./pages/dashboard/shifts/ShiftsPage";
 import ShopPage from "./pages/dashboard/shop/ShopPage";
 import GuestOrderPage from "./pages/guest-order/GuestOrderPage";
 import GuestShopPage from "./pages/guest-shop/GuestShopPage";
@@ -20,7 +23,11 @@ function App() {
       {/* Guarded dashboard */}
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/dashboard/shop/:shopId" element={<ShopPage />} />
+        <Route path="/dashboard/shop/:shopId" element={<DashboardLayout />}>
+          <Route index element={<ShopPage />} />
+          <Route path="menu" element={<MenuPage />} />
+          <Route path="shifts" element={<ShiftsPage />} />
+        </Route>
       </Route>
 
       {/* Public pages */}
