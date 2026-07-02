@@ -5,7 +5,6 @@ import { isValidUuid } from "@/lib/validation";
 import { useQuery } from "@tanstack/react-query";
 import { Navigate, useParams } from "react-router-dom";
 import ShopClosed from "./components/ShopClosed";
-import ShopHeader from "./components/ShopHeader";
 import ShopOpen from "./components/ShopOpen";
 
 export default function ShopPage() {
@@ -15,23 +14,18 @@ export default function ShopPage() {
     return <Navigate to="/dashboard" replace />;
   }
 
-  const { isPending, error, data } = useQuery({
+  const { isPending, error, data, refetch } = useQuery({
     queryKey: ["shop", shopId],
     queryFn: () => getShop(shopId),
   });
 
   if (isPending) return <LoadingSpinner />;
 
-  if (error) return <QueryError error={error} />;
+  if (error) return <QueryError error={error} onRetry={refetch} />;
 
   // TODO: drive this from the shop's active shift once getShop returns shift
   // state (mirror the guest `hasOpenShift` field on the owner endpoint).
   const hasOpenShift = false;
 
-  return (
-    <>
-      <ShopHeader name={data.name} />
-      {hasOpenShift ? <ShopOpen /> : <ShopClosed shop={data} />}
-    </>
-  );
+  return hasOpenShift ? <ShopOpen /> : <ShopClosed shop={data} />;
 }
