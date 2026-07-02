@@ -1,7 +1,13 @@
 import BackBtn from "@/components/common/BackBtn";
+import { useShopIdParam } from "@/hooks/useShopIdParam";
+import { Navigate } from "react-router-dom";
 import ShiftsList from "./components/ShiftsList";
 
 export default function ShiftsPage() {
+  const shopId = useShopIdParam();
+
+  if (!shopId) return <Navigate to="/dashboard" replace />;
+
   return (
     <div className="mx-auto max-w-6xl px-6 py-6">
       <BackBtn className="-ml-2.5 h-auto py-0.5" />
@@ -9,7 +15,7 @@ export default function ShiftsPage() {
         <h1 className="text-2xl font-semibold tracking-tight">Shifts</h1>
       </div>
 
-      <ShiftsList />
+      <ShiftsList shopId={shopId} />
     </div>
   );
 }
