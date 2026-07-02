@@ -7,6 +7,6 @@ export type Order = {
   number: number;
   status: OrderStatus;
   createdAt: string;
-  readyAt: string;
-  collectedAt: string;
+  readyAt: string | null;
+  collectedAt: string | null;
 };
