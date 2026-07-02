@@ -71,16 +71,24 @@ export class ShiftsService {
   async findAll(shopId: string, userId: string) {
     await this.shopsService.findOne(shopId, userId);
 
-    // TODO add order count
-
-    return this.prisma.shift.findMany({
+    const shifts = await this.prisma.shift.findMany({
       where: {
         shopId: shopId,
       },
       orderBy: {
         startedAt: 'desc',
       },
+      include: {
+        _count: {
+          select: { orders: true },
+        },
+      },
     });
+
+    return shifts.map(({ _count, ...shift }) => ({
+      ...shift,
+      ordersCount: _count.orders,
+    }));
   }
 
   async findOne(shopId: string, id: string, userId: string) {
