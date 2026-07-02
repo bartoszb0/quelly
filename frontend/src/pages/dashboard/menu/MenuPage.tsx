@@ -1,15 +1,13 @@
 import BackBtn from "@/components/common/BackBtn";
-import { isValidUuid } from "@/lib/validation";
-import { Navigate, useParams } from "react-router-dom";
+import { useShopIdParam } from "@/hooks/useShopIdParam";
+import { Navigate } from "react-router-dom";
 import AddMenuItem from "./components/AddMenuItem";
 import MenuItems from "./components/MenuItems";
 
 export default function MenuPage() {
-  const { shopId } = useParams();
+  const shopId = useShopIdParam();
 
-  if (!shopId || !isValidUuid(shopId)) {
-    return <Navigate to="/dashboard" replace />;
-  }
+  if (!shopId) return <Navigate to="/dashboard" replace />;
 
   return (
     <>

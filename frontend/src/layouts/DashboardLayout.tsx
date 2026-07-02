@@ -1,17 +1,15 @@
 import { getShop } from "@/api/shop";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { QueryError } from "@/components/common/QueryError";
-import { isValidUuid } from "@/lib/validation";
+import { useShopIdParam } from "@/hooks/useShopIdParam";
 import ShopHeader from "@/pages/dashboard/shop/components/ShopHeader";
 import { useQuery } from "@tanstack/react-query";
-import { Navigate, Outlet, useParams } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 export default function DashboardLayout() {
-  const { shopId } = useParams();
+  const shopId = useShopIdParam();
 
-  if (!shopId || !isValidUuid(shopId)) {
-    return <Navigate to="/dashboard" replace />;
-  }
+  if (!shopId) return <Navigate to="/dashboard" replace />;
 
   const { isPending, error, data, refetch } = useQuery({
     queryKey: ["shop", shopId],
