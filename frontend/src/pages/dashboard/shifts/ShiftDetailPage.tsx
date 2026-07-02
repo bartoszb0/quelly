@@ -19,9 +19,6 @@ export default function ShiftDetailPage() {
         className="-ml-2.5 h-auto py-0.5"
         to={`/dashboard/shop/${shopId}/shifts`}
       />
-      <div className="mt-2 mb-1 flex items-start justify-between gap-4">
-        <h1 className="text-2xl font-semibold tracking-tight">Shift</h1>
-      </div>
 
       <ShiftDetail shopId={shopId} shiftId={shiftId} />
     </div>
