@@ -6,21 +6,24 @@ import { useNavigate, useParams } from "react-router-dom";
 export default function BackBtn({
   label = "Back",
   className,
+  to,
 }: {
   label?: string;
   className?: string;
+  to?: string;
 }) {
   const navigate = useNavigate();
   const { shopId } = useParams();
 
-  const to = shopId ? `/dashboard/shop/${shopId}` : "/dashboard";
+  // Default target is the shop's own page; callers can override with `to`.
+  const target = to ?? (shopId ? `/dashboard/shop/${shopId}` : "/dashboard");
 
   return (
     <Button
       variant="ghost"
       size="sm"
       className={cn("text-muted-foreground", className)}
-      onClick={() => navigate(to)}
+      onClick={() => navigate(target)}
     >
       <ArrowLeft />
       {label}
