@@ -9,4 +9,11 @@ export type Order = {
   createdAt: string;
   readyAt: string | null;
   collectedAt: string | null;
+  items: OrderItem[];
+};
+
+export type OrderItem = {
+  id: string;
+  nameSnapshot: string;
+  quantity: number;
 };
