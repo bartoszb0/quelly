@@ -99,7 +99,22 @@ export class ShiftsService {
         shopId: shopId,
         id: id,
       },
-      include: { orders: true },
+      include: {
+        orders: {
+          orderBy: {
+            number: 'asc',
+          },
+          include: {
+            items: {
+              select: {
+                id: true,
+                nameSnapshot: true,
+                quantity: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     if (!shift) throw new NotFoundException('Could not find this shift');
