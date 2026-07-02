@@ -77,6 +77,9 @@ export class ShiftsService {
       where: {
         shopId: shopId,
       },
+      orderBy: {
+        startedAt: 'desc',
+      },
     });
   }
 
