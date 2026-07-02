@@ -3,6 +3,7 @@ import { ProtectedRoute } from "./components/common/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import MenuPage from "./pages/dashboard/menu/MenuPage";
+import ShiftDetailPage from "./pages/dashboard/shifts/ShiftDetailPage";
 import ShiftsPage from "./pages/dashboard/shifts/ShiftsPage";
 import ShopPage from "./pages/dashboard/shop/ShopPage";
 import GuestOrderPage from "./pages/guest-order/GuestOrderPage";
@@ -27,6 +28,7 @@ function App() {
           <Route index element={<ShopPage />} />
           <Route path="menu" element={<MenuPage />} />
           <Route path="shifts" element={<ShiftsPage />} />
+          <Route path="shifts/:shiftId" element={<ShiftDetailPage />} />
         </Route>
       </Route>
 
