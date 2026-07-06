@@ -1,5 +1,5 @@
-import { createOrder } from "@/api/order";
 import { getMenuItems } from "@/api/menu";
+import { createOrder } from "@/api/order";
 import EmptyState from "@/components/common/EmptyState";
 import { QueryError } from "@/components/common/QueryError";
 import { Button } from "@/components/ui/button";
@@ -141,13 +141,16 @@ export default function OrderBuilder({
             ))}
           </ul>
         )}
-
         <Button
           className="w-full"
           onClick={() => placeOrder.mutate()}
-          disabled={cartEntries.length === 0 || placeOrder.isPending}
+          disabled={placeOrder.isPending}
         >
-          {placeOrder.isPending ? "Placing..." : "Place order"}
+          {placeOrder.isPending
+            ? "Placing..."
+            : cartEntries.length === 0
+              ? "Number only"
+              : "Place order"}
         </Button>
       </Card>
     </div>
