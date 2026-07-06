@@ -21,9 +21,9 @@ export default function ShopPage() {
 
   if (error) return <QueryError error={error} onRetry={refetch} />;
 
-  // TODO: drive this from the shop's active shift once getShop returns shift
-  // state (mirror the guest `hasOpenShift` field on the owner endpoint).
-  const hasOpenShift = false;
-
-  return hasOpenShift ? <ShopOpen /> : <ShopClosed shop={data} />;
+  return data.activeShift ? (
+    <ShopOpen shift={data.activeShift} />
+  ) : (
+    <ShopClosed shop={data} />
+  );
 }
