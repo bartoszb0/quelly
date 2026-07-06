@@ -26,11 +26,7 @@ export default function ShopClosed({ shop }: { shop: Shop }) {
     <div className="mx-auto max-w-3xl px-6 py-12">
       {/* Closed hero */}
       <div className="flex flex-col items-center text-center">
-        <span className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm text-muted-foreground">
-          <span className="size-2 rounded-full bg-muted-foreground/50" />
-          Shop is closed
-        </span>
-        <h2 className="mt-4 text-2xl font-semibold tracking-tight">
+        <h2 className="text-2xl font-semibold tracking-tight">
           No active shift
         </h2>
         <p className="mt-2 max-w-sm text-sm text-muted-foreground">
