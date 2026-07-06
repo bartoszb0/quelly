@@ -14,3 +14,8 @@ export type ShiftListItem = Shift & {
 export type ShiftDetail = Shift & {
   orders: Order[];
 };
+
+export type ActiveShift = {
+  id: string;
+  startedAt: string;
+};

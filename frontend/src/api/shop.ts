@@ -1,5 +1,5 @@
 import type { ShopInput } from "@/schemas/shopSchema";
-import type { Shop } from "@/types/Shop";
+import type { Shop, ShopDetail } from "@/types/Shop";
 import { api } from "./client";
 
 export const getShops = async (): Promise<Shop[]> => {
@@ -7,8 +7,8 @@ export const getShops = async (): Promise<Shop[]> => {
   return res.data;
 };
 
-export const getShop = async (shopId: string): Promise<Shop> => {
-  const res = await api.get<Shop>(`/shops/${shopId}`);
+export const getShop = async (shopId: string): Promise<ShopDetail> => {
+  const res = await api.get<ShopDetail>(`/shops/${shopId}`);
   return res.data;
 };
 

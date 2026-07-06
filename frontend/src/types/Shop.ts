@@ -1,3 +1,5 @@
+import type { ActiveShift } from "./Shift";
+
 export type Shop = {
   createdAt: string;
   id: string;
@@ -5,4 +7,8 @@ export type Shop = {
   ownerId: string;
   publicId: string;
   updatedAt: string;
+};
+
+export type ShopDetail = Shop & {
+  activeShift: ActiveShift | null;
 };
