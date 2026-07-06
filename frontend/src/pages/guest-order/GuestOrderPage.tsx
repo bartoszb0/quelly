@@ -5,6 +5,11 @@ import { useOrderSocket } from "@/hooks/useOrderSocket";
 import { isValidUuid } from "@/lib/validation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Navigate, useParams } from "react-router-dom";
+import LiveIndicator from "./components/LiveIndicator";
+import OrderItems from "./components/OrderItems";
+import OrderProgress from "./components/OrderProgress";
+import OrderStatusIcon from "./components/OrderStatusIcon";
+import OrderStatusMessage from "./components/OrderStatusMessage";
 
 export default function GuestOrderPage() {
   const { shopPublicId, orderNumber } = useParams();
@@ -30,22 +35,29 @@ export default function GuestOrderPage() {
 
   if (error) return <QueryError error={error} redirectOn404 />;
 
-  return (
-    <div>
-      <h1>Your number: {data.number}</h1>
-      {data.ordersInQueue !== null && (
-        <h1>Orders in queue: {data.ordersInQueue}</h1>
-      )}
-      <h1>Status: {data.status}</h1>
-      <h1>Placed at: {data.createdAt}</h1>
+  const isActive = data.status === "QUEUED" || data.status === "READY";
 
-      <div className="flex flex-col mt-10">
-        {data.items.map((item, index) => (
-          <h2 key={index}>
-            {item.nameSnapshot} - x{item.quantity}
-          </h2>
-        ))}
+  return (
+    <div className="mx-auto flex min-h-dvh w-full max-w-sm flex-col items-center justify-center gap-6 px-6 py-12">
+      <OrderStatusIcon status={data.status} />
+
+      <div className="text-center">
+        <p className="text-sm font-medium text-muted-foreground">Your number</p>
+        <p className="mt-1 text-7xl font-bold tracking-tight tabular-nums">
+          #{data.number}
+        </p>
       </div>
+
+      <OrderStatusMessage
+        status={data.status}
+        ordersInQueue={data.ordersInQueue}
+      />
+
+      <OrderProgress status={data.status} />
+
+      <OrderItems items={data.items} />
+
+      <LiveIndicator isActive={isActive} createdAt={data.createdAt} />
     </div>
   );
 }

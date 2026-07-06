@@ -25,8 +25,7 @@ export default function GuestShopPage() {
   if (error) return <QueryError error={error} redirectOn404 />;
 
   return (
-    <div className="flex flex-col">
-      {data.name}
+    <div className="mx-auto flex min-h-dvh w-full max-w-sm flex-col items-center justify-center px-6 py-12">
       <ShopName name={data.name} />
       {data.hasOpenShift ? (
         <NumberForm shopPublicId={shopPublicId} />
