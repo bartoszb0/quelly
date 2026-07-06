@@ -42,7 +42,7 @@ export class ShopsController {
     @Param('id', ParseUUIDPipe) id: UUID,
     @CurrentUser() user: UserPayload,
   ) {
-    return this.shopsService.findOne(id, user.id);
+    return this.shopsService.findOneWithStatus(id, user.id);
   }
 
   @Patch(':id')

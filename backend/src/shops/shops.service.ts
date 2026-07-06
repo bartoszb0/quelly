@@ -35,6 +35,20 @@ export class ShopsService {
     return shop;
   }
 
+  async findOneWithStatus(id: string, userId: string) {
+    const shop = await this.findOne(id, userId);
+
+    const activeShift = await this.prisma.shift.findFirst({
+      where: {
+        shopId: id,
+        endedAt: null,
+      },
+      select: { id: true, startedAt: true },
+    });
+
+    return { ...shop, activeShift };
+  }
+
   async update(id: string, updateShopDto: UpdateShopDto, userId: string) {
     await this.findOne(id, userId);
     return this.prisma.shop.update({
