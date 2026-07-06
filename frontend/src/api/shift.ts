@@ -1,9 +1,7 @@
-import type { ShiftDetail, ShiftListItem } from "@/types/Shift";
+import type { Shift, ShiftDetail, ShiftListItem } from "@/types/Shift";
 import { api } from "./client";
 
-export const getShifts = async (
-  shopId: string,
-): Promise<ShiftListItem[]> => {
+export const getShifts = async (shopId: string): Promise<ShiftListItem[]> => {
   const res = await api.get<ShiftListItem[]>(`/shops/${shopId}/shifts`);
   return res.data;
 };
@@ -13,5 +11,15 @@ export const getShift = async (
   shiftId: string,
 ): Promise<ShiftDetail> => {
   const res = await api.get<ShiftDetail>(`/shops/${shopId}/shifts/${shiftId}`);
+  return res.data;
+};
+
+export const startShift = async (shopId: string): Promise<Shift> => {
+  const res = await api.post<Shift>(`/shops/${shopId}/shifts/start`);
+  return res.data;
+};
+
+export const endShift = async (shopId: string): Promise<Shift> => {
+  const res = await api.post<Shift>(`/shops/${shopId}/shifts/end`);
   return res.data;
 };
