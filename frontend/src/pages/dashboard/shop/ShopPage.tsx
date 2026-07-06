@@ -22,7 +22,7 @@ export default function ShopPage() {
   if (error) return <QueryError error={error} onRetry={refetch} />;
 
   return data.activeShift ? (
-    <ShopOpen shift={data.activeShift} />
+    <ShopOpen shift={data.activeShift} shopId={shopId} />
   ) : (
     <ShopClosed shop={data} />
   );
