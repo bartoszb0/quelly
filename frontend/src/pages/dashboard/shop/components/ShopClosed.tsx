@@ -50,7 +50,7 @@ export default function ShopClosed({ shop }: { shop: Shop }) {
 
         <PastShiftsCard shopId={shop.id} />
 
-        <QrCodeCard shop={shop} />
+        <QrCodeCard shopId={shop.id} />
       </div>
     </div>
   );
