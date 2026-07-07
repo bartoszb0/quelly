@@ -1,12 +1,13 @@
+import i18n from "@/i18n";
 import { isAxiosError } from "axios";
 import { toast } from "sonner";
 
-const DEFAULT_MESSAGES: Record<number, string> = {
-  400: "Invalid request. Please check your input and try again.",
-  403: "You don't have permission to do that.",
-  404: "We couldn't find what you were looking for.",
-  429: "Too many requests. Please try again later.",
-  500: "Something went wrong on our end. Please try again later.",
+const DEFAULT_MESSAGE_KEYS: Record<number, string> = {
+  400: "common:apiErrors.400",
+  403: "common:apiErrors.403",
+  404: "common:apiErrors.404",
+  429: "common:apiErrors.429",
+  500: "common:apiErrors.500",
 };
 
 export function toastApiError(
@@ -16,12 +17,17 @@ export function toastApiError(
   if (isAxiosError(error)) {
     // No response means the request never completed (offline, CORS, timeout).
     if (!error.response) {
-      toast.error("Network error. Please check your connection.");
+      toast.error(i18n.t("common:apiErrors.network"));
       return;
     }
 
     const status = error.response.status;
-    const message = messages[status] ?? DEFAULT_MESSAGES[status];
+    // Caller overrides arrive already translated; defaults are keys.
+    const message =
+      messages[status] ??
+      (DEFAULT_MESSAGE_KEYS[status]
+        ? i18n.t(DEFAULT_MESSAGE_KEYS[status])
+        : undefined);
     if (message) {
       toast.error(message);
       return;
@@ -30,5 +36,5 @@ export function toastApiError(
 
   // Unmatched status or non-Axios error: log it and show a generic message.
   console.error(error);
-  toast.error("Something went wrong. Please try again.");
+  toast.error(i18n.t("common:apiErrors.generic"));
 }

@@ -3,10 +3,20 @@ import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 type FlyerOptions = {
   qrDataUrl: string; // PNG data URL of the QR code
   shopName: string;
+  instruction: string; // localized "scan to track" line
   pageBg: string; // hex — page background
   text: string; // hex — title + instruction color
   qrLight: string; // hex — tile behind the QR
 };
+
+function toWinAnsiSafe(value: string): string {
+  return value
+    .replace(/ł/g, "l")
+    .replace(/Ł/g, "L")
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .normalize("NFC");
+}
 
 // A4 in PDF points.
 const PAGE_WIDTH = 595.28;
@@ -63,6 +73,7 @@ function drawCentered(
 export async function buildQrFlyer({
   qrDataUrl,
   shopName,
+  instruction,
   pageBg,
   text,
   qrLight,
@@ -85,10 +96,10 @@ export async function buildQrFlyer({
   const ink = hexToRgb(text);
 
   // Title + instruction.
-  drawCentered(page, shopName, bold, 44, PAGE_HEIGHT - 140, ink);
+  drawCentered(page, toWinAnsiSafe(shopName), bold, 44, PAGE_HEIGHT - 140, ink);
   drawCentered(
     page,
-    "Scan to track your order live",
+    toWinAnsiSafe(instruction),
     regular,
     22,
     PAGE_HEIGHT - 180,

@@ -1,5 +1,11 @@
+import i18n from "@/i18n";
+
+function locale() {
+  return i18n.resolvedLanguage;
+}
+
 export function fmtDate(iso: string) {
-  const formatted = new Date(iso).toLocaleDateString(undefined, {
+  const formatted = new Date(iso).toLocaleDateString(locale(), {
     weekday: "long",
     month: "long",
     day: "numeric",
@@ -8,7 +14,7 @@ export function fmtDate(iso: string) {
 }
 
 export function fmtTime(iso: string) {
-  return new Date(iso).toLocaleTimeString(undefined, {
+  return new Date(iso).toLocaleTimeString(locale(), {
     hour: "numeric",
     minute: "2-digit",
   });
@@ -21,5 +27,7 @@ export function fmtDuration(start: string, end: string) {
   );
   const h = Math.floor(mins / 60);
   const m = mins % 60;
-  return h > 0 ? `${h}h ${m}m` : `${m}m`;
+  return h > 0
+    ? i18n.t("common:duration.hoursMinutes", { hours: h, minutes: m })
+    : i18n.t("common:duration.minutes", { minutes: m });
 }
