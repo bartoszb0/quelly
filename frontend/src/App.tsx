@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { ProtectedRoute } from "./components/common/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
+import AnalyticsPage from "./pages/dashboard/analytics/AnalyticsPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import MenuPage from "./pages/dashboard/menu/MenuPage";
 import QrCodePage from "./pages/dashboard/qr/QrCodePage";
@@ -30,6 +31,7 @@ function App() {
           <Route path="menu" element={<MenuPage />} />
           <Route path="qr" element={<QrCodePage />} />
           <Route path="shifts" element={<ShiftsPage />} />
+          <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="shifts/:shiftId" element={<ShiftDetailPage />} />
         </Route>
       </Route>
