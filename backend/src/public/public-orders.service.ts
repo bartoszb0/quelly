@@ -23,8 +23,6 @@ export class PublicOrdersService {
 
     if (!shift) throw new NotFoundException('Could not find that shop');
 
-    // TODO validate number 1-99 maybe?
-
     const order = await this.prisma.order.findFirst({
       where: {
         shopId: shop.id,
@@ -42,6 +40,9 @@ export class PublicOrdersService {
           },
         },
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
 
     if (!order) throw new NotFoundException('Could not find that order');
@@ -52,10 +53,8 @@ export class PublicOrdersService {
       ordersInQueue = await this.prisma.order.count({
         where: {
           shiftId: shift.id,
-          number: {
-            lt: number,
-          },
           status: 'QUEUED',
+          createdAt: { lt: order.createdAt },
         },
       });
     }
