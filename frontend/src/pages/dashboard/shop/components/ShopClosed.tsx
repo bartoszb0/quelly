@@ -46,7 +46,7 @@ export default function ShopClosed({ shop }: { shop: Shop }) {
       </div>
 
       {/* Setup cards */}
-      <div className="mt-12 grid auto-rows-fr gap-4 sm:grid-cols-2">
+      <div className="mt-12 grid auto-rows-fr gap-4">
         <MenuItemsCard shopId={shop.id} />
 
         <PastShiftsCard shopId={shop.id} />
