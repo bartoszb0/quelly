@@ -1,10 +1,12 @@
 import BackBtn from "@/components/common/BackBtn";
 import { useShopIdParam } from "@/hooks/useShopIdParam";
 import { isValidUuid } from "@/lib/validation";
+import { useTranslation } from "react-i18next";
 import { Navigate, useParams } from "react-router-dom";
 import ShiftDetail from "./components/ShiftDetail";
 
 export default function ShiftDetailPage() {
+  const { t } = useTranslation("shifts");
   const shopId = useShopIdParam();
   const { shiftId } = useParams();
 
@@ -15,7 +17,7 @@ export default function ShiftDetailPage() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-6">
       <BackBtn
-        label="Shifts"
+        label={t("title")}
         className="-ml-2.5 h-auto py-0.5"
         to={`/dashboard/shop/${shopId}/shifts`}
       />

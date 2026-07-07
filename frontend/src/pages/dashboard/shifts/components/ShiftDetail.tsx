@@ -4,6 +4,7 @@ import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { QueryError } from "@/components/common/QueryError";
 import { fmtDate, fmtDuration, fmtTime } from "@/lib/dateFormat";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import OrderCard from "./OrderCard";
 
 export default function ShiftDetail({
@@ -13,6 +14,7 @@ export default function ShiftDetail({
   shopId: string;
   shiftId: string;
 }) {
+  const { t } = useTranslation("shifts");
   const { isPending, error, data, refetch } = useQuery({
     queryKey: ["shift", shopId, shiftId],
     queryFn: () => getShift(shopId, shiftId),
@@ -32,12 +34,12 @@ export default function ShiftDetail({
 
       <p className="text-sm text-muted-foreground">
         {fmtTime(data.startedAt)} -{" "}
-        {data.endedAt ? fmtTime(data.endedAt) : "ongoing"}
+        {data.endedAt ? fmtTime(data.endedAt) : t("ongoing")}
         {data.endedAt && <> · {fmtDuration(data.startedAt, data.endedAt)}</>}
       </p>
 
       {data.orders.length === 0 ? (
-        <EmptyState label="orders" />
+        <EmptyState message={t("emptyOrders")} />
       ) : (
         <div className="mt-4 flex flex-col gap-3">
           {data.orders.map((order) => (

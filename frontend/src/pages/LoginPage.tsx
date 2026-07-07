@@ -1,5 +1,6 @@
 import { signIn } from "@/api/auth";
 import AdminPanelLogo from "@/components/common/AdminPanelLogo";
+import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,9 +15,11 @@ import { loginSchema, type LoginInput } from "@/schemas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+  const { t } = useTranslation("auth");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const {
@@ -33,12 +36,12 @@ export default function LoginPage() {
       queryClient.setQueryData(["me"], user);
       navigate("/dashboard", { replace: true });
     } catch (e) {
-      toastApiError(e, { 401: "Invalid email or password" });
+      toastApiError(e, { 401: t("errors.invalidCredentials") });
     }
   };
 
   return (
-    <div className="flex flex-col min-h-screen items-center justify-center p-4">
+    <div className="flex flex-col min-h-screen items-center justify-center gap-4 p-4">
       <Card className="w-full max-w-sm">
         <CardHeader>
           <AdminPanelLogo />
@@ -48,32 +51,32 @@ export default function LoginPage() {
             <fieldset disabled={isSubmitting}>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t("email")}</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="m@example.com"
+                    placeholder={t("emailPlaceholder")}
                     aria-invalid={!!errors.email}
                     {...register("email")}
                   />
                   {errors.email && (
                     <p className="text-sm text-left text-destructive">
-                      {errors.email.message}
+                      {t(errors.email.message ?? "")}
                     </p>
                   )}
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">{t("password")}</Label>
                   <Input
                     id="password"
                     type="password"
-                    placeholder="•••••••••"
+                    placeholder={t("passwordPlaceholder")}
                     aria-invalid={!!errors.password}
                     {...register("password")}
                   />
                   {errors.password && (
                     <p className="text-sm text-left text-destructive">
-                      {errors.password.message}
+                      {t(errors.password.message ?? "")}
                     </p>
                   )}
                 </div>
@@ -89,16 +92,17 @@ export default function LoginPage() {
             className="w-full"
             disabled={isSubmitting}
           >
-            Login
+            {t("logIn")}
           </Button>
           <Link
             to="/register"
             className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
           >
-            Create account
+            {t("createAccount")}
           </Link>
         </CardFooter>
       </Card>
+      <LanguageSwitcher />
     </div>
   );
 }

@@ -1,8 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UtensilsCrossed } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 export default function MenuItemsCard({ shopId }: { shopId: string }) {
+  const { t } = useTranslation("shop");
   const navigate = useNavigate();
 
   return (
@@ -12,10 +14,10 @@ export default function MenuItemsCard({ shopId }: { shopId: string }) {
     >
       <CardHeader className="flex items-center gap-2">
         <UtensilsCrossed className="size-5 text-muted-foreground" />
-        <CardTitle className="text-base">Menu items</CardTitle>
+        <CardTitle className="text-base">{t("cards.menuTitle")}</CardTitle>
       </CardHeader>
       <CardContent className="text-sm text-muted-foreground">
-        Manage what guests can order.
+        {t("cards.menuBody")}
       </CardContent>
     </Card>
   );

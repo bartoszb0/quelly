@@ -1,12 +1,12 @@
 import { Card } from "@/components/ui/card";
-import {
-  ORDER_STATUS_LABEL,
-  ORDER_STATUS_STYLE,
-} from "@/constants/orderStatus";
+import { ORDER_STATUS_STYLE } from "@/constants/orderStatus";
 import { cn } from "@/lib/utils";
 import type { Order } from "@/types/Order";
+import { useTranslation } from "react-i18next";
 
 export default function OrderCard({ order }: { order: Order }) {
+  const { t } = useTranslation();
+
   return (
     <Card className="gap-3 p-4">
       <div className="flex items-center justify-between gap-4">
@@ -17,7 +17,7 @@ export default function OrderCard({ order }: { order: Order }) {
             ORDER_STATUS_STYLE[order.status],
           )}
         >
-          {ORDER_STATUS_LABEL[order.status]}
+          {t(`status.${order.status}`)}
         </span>
       </div>
 

@@ -9,6 +9,7 @@ import { toastApiError } from "@/lib/toastApiError";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 export default function OrderBuilder({
@@ -18,6 +19,7 @@ export default function OrderBuilder({
   shopId: string;
   shiftId: string;
 }) {
+  const { t } = useTranslation("shop");
   const queryClient = useQueryClient();
   const [cart, setCart] = useState<Record<string, number>>({});
 
@@ -44,7 +46,7 @@ export default function OrderBuilder({
       await queryClient.invalidateQueries({
         queryKey: ["shift", shopId, shiftId],
       });
-      toast.success("Order placed");
+      toast.success(t("builder.placed"));
     },
     onError: (e) => toastApiError(e),
   });
@@ -70,15 +72,14 @@ export default function OrderBuilder({
   if (error) return <QueryError error={error} onRetry={refetch} />;
 
   const cartEntries = Object.entries(cart);
-  const nameOf = (id: string) =>
-    menuItems.find((m) => m.id === id)?.name ?? "Item";
+  const nameOf = (id: string) => menuItems.find((m) => m.id === id)?.name ?? "";
 
   return (
     <div className="flex flex-1 flex-col gap-6">
       <section className="flex flex-col gap-3">
-        <h2 className="text-sm font-medium">Menu</h2>
+        <h2 className="text-sm font-medium">{t("builder.menuHeading")}</h2>
         {menuItems.length === 0 ? (
-          <EmptyState label="menu items" />
+          <EmptyState message={t("builder.emptyMenu")} />
         ) : (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             {menuItems.map((item) => {
@@ -105,11 +106,11 @@ export default function OrderBuilder({
       </section>
 
       <Card className="gap-4 p-4">
-        <h2 className="text-sm font-medium">New order</h2>
+        <h2 className="text-sm font-medium">{t("builder.newOrder")}</h2>
 
         {cartEntries.length === 0 ? (
           <p className="py-4 text-center text-sm text-muted-foreground">
-            Tap menu items to build an order.
+            {t("builder.tapHint")}
           </p>
         ) : (
           <ul className="flex flex-col gap-2">
@@ -121,7 +122,7 @@ export default function OrderBuilder({
                     variant="outline"
                     size="icon-xs"
                     onClick={() => setQty(id, qty - 1)}
-                    aria-label="Decrease quantity"
+                    aria-label={t("builder.decreaseQty")}
                   >
                     <Minus />
                   </Button>
@@ -132,7 +133,7 @@ export default function OrderBuilder({
                     variant="outline"
                     size="icon-xs"
                     onClick={() => setQty(id, qty + 1)}
-                    aria-label="Increase quantity"
+                    aria-label={t("builder.increaseQty")}
                   >
                     <Plus />
                   </Button>
@@ -147,10 +148,10 @@ export default function OrderBuilder({
           disabled={placeOrder.isPending}
         >
           {placeOrder.isPending
-            ? "Placing..."
+            ? t("builder.placing")
             : cartEntries.length === 0
-              ? "Number only"
-              : "Place order"}
+              ? t("builder.numberOnly")
+              : t("builder.placeOrder")}
         </Button>
       </Card>
     </div>

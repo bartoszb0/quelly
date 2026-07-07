@@ -5,6 +5,7 @@ import { fmtTime } from "@/lib/dateFormat";
 import type { ActiveShift } from "@/types/Shift";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import EndShiftButton from "./EndShiftButton";
 import MenuOrdersTabs from "./MenuOrdersTabs";
 import OrderBuilder from "./OrderBuilder";
@@ -17,6 +18,7 @@ export default function ShopOpen({
   shift: ActiveShift;
   shopId: string;
 }) {
+  const { t } = useTranslation("shop");
   const [tab, setTab] = useState<"orders" | "menu">("menu");
 
   const { isPending, error, data, refetch } = useQuery({
@@ -50,7 +52,9 @@ export default function ShopOpen({
             <div className="flex items-center justify-between gap-4 border-t pt-6">
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <span className="size-2 shrink-0 rounded-full bg-emerald-500" />
-                <span>Shift open · since {fmtTime(shift.startedAt)}</span>
+                <span>
+                  {t("shiftOpenSince", { time: fmtTime(shift.startedAt) })}
+                </span>
               </div>
               <EndShiftButton shopId={shopId} />
             </div>

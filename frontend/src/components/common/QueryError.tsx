@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { AxiosError } from "axios";
 import { RotateCw, TriangleAlert } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Navigate } from "react-router-dom";
 
 export function QueryError({
@@ -12,6 +13,8 @@ export function QueryError({
   redirectOn404?: boolean;
   onRetry?: () => void;
 }) {
+  const { t } = useTranslation();
+
   if (
     redirectOn404 &&
     error instanceof AxiosError &&
@@ -26,15 +29,15 @@ export function QueryError({
         <TriangleAlert className="size-6" />
       </div>
       <div className="space-y-1">
-        <p className="text-sm font-medium">Something went wrong</p>
+        <p className="text-sm font-medium">{t("errorTitle")}</p>
         <p className="max-w-xs text-sm text-muted-foreground">
-          We couldn't load this right now. Please try again.
+          {t("errorBody")}
         </p>
       </div>
       {onRetry && (
         <Button variant="outline" size="sm" onClick={onRetry}>
           <RotateCw />
-          Try again
+          {t("tryAgain")}
         </Button>
       )}
     </div>

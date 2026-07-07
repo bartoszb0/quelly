@@ -1,8 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { History } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 export default function PastShiftsCard({ shopId }: { shopId: string }) {
+  const { t } = useTranslation("shop");
   const navigate = useNavigate();
 
   return (
@@ -12,10 +14,10 @@ export default function PastShiftsCard({ shopId }: { shopId: string }) {
     >
       <CardHeader className="flex items-center gap-2">
         <History className="size-5 text-muted-foreground" />
-        <CardTitle className="text-base">Past shifts</CardTitle>
+        <CardTitle className="text-base">{t("cards.shiftsTitle")}</CardTitle>
       </CardHeader>
       <CardContent className="text-sm text-muted-foreground">
-        Review previous service sessions.
+        {t("cards.shiftsBody")}
       </CardContent>
     </Card>
   );

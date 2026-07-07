@@ -17,6 +17,7 @@ import type { MenuItem } from "@/types/MenuItem";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import DeleteMenuItem from "./DeleteMenuItem";
 
@@ -29,6 +30,7 @@ export default function EditMenuItemDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
+  const { t } = useTranslation("menu");
   const queryClient = useQueryClient();
   const {
     register,
@@ -46,7 +48,7 @@ export default function EditMenuItemDialog({
       await queryClient.invalidateQueries({
         queryKey: ["shop-menu", item.shopId],
       });
-      toast.success("Menu item updated");
+      toast.success(t("editDialog.updated"));
       onOpenChange(false);
     } catch (e) {
       toastApiError(e);
@@ -64,16 +66,14 @@ export default function EditMenuItemDialog({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit menu item</DialogTitle>
-          <DialogDescription>
-            Rename this item or remove it from your menu.
-          </DialogDescription>
+          <DialogTitle>{t("editDialog.title")}</DialogTitle>
+          <DialogDescription>{t("editDialog.description")}</DialogDescription>
         </DialogHeader>
 
         <form id="edit-menu-item-form" onSubmit={handleSubmit(onSubmit)}>
           <fieldset disabled={isSubmitting}>
             <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name">{t("nameLabel")}</Label>
               <Input
                 id="name"
                 autoFocus
@@ -82,7 +82,7 @@ export default function EditMenuItemDialog({
               />
               {errors.name && (
                 <p className="text-sm text-left text-destructive">
-                  {errors.name.message}
+                  {t(errors.name.message ?? "")}
                 </p>
               )}
             </div>
@@ -97,14 +97,14 @@ export default function EditMenuItemDialog({
           />
           <div className="flex flex-col-reverse gap-2 sm:flex-row">
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">{t("common:cancel")}</Button>
             </DialogClose>
             <Button
               type="submit"
               form="edit-menu-item-form"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Saving..." : "Save"}
+              {isSubmitting ? t("common:saving") : t("common:save")}
             </Button>
           </div>
         </DialogFooter>

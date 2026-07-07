@@ -1,8 +1,9 @@
 import { cn } from "@/lib/utils";
 import type { OrderStatus } from "@/types/OrderStatus";
 import { Fragment } from "react";
+import { useTranslation } from "react-i18next";
 
-const STEPS = ["Queued", "Ready", "Collected"] as const;
+const STEPS = ["QUEUED", "READY", "COLLECTED"] as const;
 const STEP_INDEX: Record<OrderStatus, number> = {
   QUEUED: 0,
   READY: 1,
@@ -11,6 +12,7 @@ const STEP_INDEX: Record<OrderStatus, number> = {
 };
 
 export default function OrderProgress({ status }: { status: OrderStatus }) {
+  const { t } = useTranslation();
   const currentStep = STEP_INDEX[status];
 
   // Hidden for the cancelled (off-path) state.
@@ -19,8 +21,8 @@ export default function OrderProgress({ status }: { status: OrderStatus }) {
   return (
     <div className="w-full">
       <div className="flex items-center">
-        {STEPS.map((label, i) => (
-          <Fragment key={label}>
+        {STEPS.map((step, i) => (
+          <Fragment key={step}>
             <div
               className={cn(
                 "size-3 shrink-0 rounded-full transition-colors",
@@ -39,16 +41,16 @@ export default function OrderProgress({ status }: { status: OrderStatus }) {
         ))}
       </div>
       <div className="mt-2 flex justify-between text-xs">
-        {STEPS.map((label, i) => (
+        {STEPS.map((step, i) => (
           <span
-            key={label}
+            key={step}
             className={cn(
               i <= currentStep
                 ? "font-medium text-foreground"
                 : "text-muted-foreground",
             )}
           >
-            {label}
+            {t(`status.${step}`)}
           </span>
         ))}
       </div>

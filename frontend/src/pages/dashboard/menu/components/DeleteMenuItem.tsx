@@ -6,6 +6,7 @@ import type { MenuItem } from "@/types/MenuItem";
 import { useQueryClient } from "@tanstack/react-query";
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 export default function DeleteMenuItem({
@@ -17,6 +18,7 @@ export default function DeleteMenuItem({
   disabled?: boolean;
   onDeleted: () => void;
 }) {
+  const { t } = useTranslation("menu");
   const [confirm, setConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const queryClient = useQueryClient();
@@ -33,7 +35,7 @@ export default function DeleteMenuItem({
       await queryClient.invalidateQueries({
         queryKey: ["shop-menu", item.shopId],
       });
-      toast.success("Menu item deleted");
+      toast.success(t("deleted"));
       onDeleted();
     } catch (e) {
       toastApiError(e);
@@ -53,7 +55,7 @@ export default function DeleteMenuItem({
       disabled={disabled || isDeleting}
     >
       <Trash2 />
-      {isDeleting ? "Deleting..." : confirm ? "Confirm delete" : "Delete"}
+      {isDeleting ? t("deleting") : confirm ? t("confirmDelete") : t("delete")}
     </Button>
   );
 }

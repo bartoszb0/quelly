@@ -16,9 +16,11 @@ import { cn } from "@/lib/utils";
 import type { Shop } from "@/types/Shop";
 import { Check, Download } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 export default function QrCustomizerDialog({ shop }: { shop: Shop }) {
+  const { t } = useTranslation("shop");
   const guestUrl = `${window.location.origin}/s/${shop.publicId}`;
 
   const [colorset, setColorset] = useState<QrColorset>(QR_COLORSETS[0]);
@@ -49,13 +51,14 @@ export default function QrCustomizerDialog({ shop }: { shop: Shop }) {
       const blob = await buildQrFlyer({
         qrDataUrl: preview,
         shopName: shop.name,
+        instruction: t("qrDialog.scanToTrack"),
         pageBg: colorset.pageBg,
         text: colorset.text,
         qrLight: colorset.qrLight,
       });
       downloadBlob(blob, "quelly-qr.pdf");
     } catch {
-      toast.error("Could not generate the PDF. Please try again.");
+      toast.error(t("qrDialog.pdfFailed"));
     } finally {
       setIsGenerating(false);
     }
@@ -65,16 +68,14 @@ export default function QrCustomizerDialog({ shop }: { shop: Shop }) {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="secondary" className="mt-4 w-full">
-          Customize &amp; download
+          {t("cards.qrCustomize")}
         </Button>
       </DialogTrigger>
 
       <DialogContent className="grid-rows-[auto_minmax(0,1fr)_auto] max-h-[calc(100dvh-2rem)] overflow-hidden sm:max-w-xl">
         <DialogHeader>
-          <DialogTitle>QR code</DialogTitle>
-          <DialogDescription>
-            Pick a color scheme, then download a print-ready PDF for your stall.
-          </DialogDescription>
+          <DialogTitle>{t("qrDialog.title")}</DialogTitle>
+          <DialogDescription>{t("qrDialog.description")}</DialogDescription>
         </DialogHeader>
 
         <div className="grid min-h-0 gap-6 overflow-y-auto sm:grid-cols-[auto_1fr]">
@@ -93,14 +94,18 @@ export default function QrCustomizerDialog({ shop }: { shop: Shop }) {
               className="mt-1 px-4 text-center text-[11px]"
               style={{ color: colorset.text }}
             >
-              Scan to track your order live
+              {t("qrDialog.scanToTrack")}
             </p>
             {preview && (
               <div
                 className="mt-[10%] w-3/5 rounded p-2"
                 style={{ backgroundColor: colorset.qrLight }}
               >
-                <img src={preview} alt="QR code preview" className="w-full" />
+                <img
+                  src={preview}
+                  alt={t("qrDialog.previewAlt")}
+                  className="w-full"
+                />
               </div>
             )}
             <span
@@ -113,7 +118,9 @@ export default function QrCustomizerDialog({ shop }: { shop: Shop }) {
 
           {/* Colorset picker */}
           <div className="flex flex-col gap-3">
-            <span className="text-sm font-medium">Color scheme</span>
+            <span className="text-sm font-medium">
+              {t("qrDialog.colorScheme")}
+            </span>
             <div className="grid max-h-[320px] grid-cols-3 gap-2 overflow-y-auto pr-1">
               {QR_COLORSETS.map((cs) => {
                 const selected = cs.name === colorset.name;
@@ -122,7 +129,7 @@ export default function QrCustomizerDialog({ shop }: { shop: Shop }) {
                     key={cs.name}
                     type="button"
                     onClick={() => setColorset(cs)}
-                    title={cs.name}
+                    title={t(`qrDialog.colors.${cs.name}`)}
                     className={cn(
                       "relative flex flex-col items-center gap-1 rounded-md border p-2 transition-colors hover:bg-secondary/40",
                       selected && "ring-2 ring-ring",
@@ -142,7 +149,9 @@ export default function QrCustomizerDialog({ shop }: { shop: Shop }) {
                         />
                       </span>
                     </span>
-                    <span className="text-[11px]">{cs.name}</span>
+                    <span className="text-[11px]">
+                      {t(`qrDialog.colors.${cs.name}`)}
+                    </span>
                     {selected && (
                       <Check className="absolute right-1 top-1 size-3.5" />
                     )}
@@ -155,14 +164,14 @@ export default function QrCustomizerDialog({ shop }: { shop: Shop }) {
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">{t("common:cancel")}</Button>
           </DialogClose>
           <Button
             onClick={handleDownloadPdf}
             disabled={isGenerating || !preview}
           >
             <Download className="size-4" />
-            {isGenerating ? "Preparing..." : "Download PDF"}
+            {isGenerating ? t("qrDialog.preparing") : t("qrDialog.download")}
           </Button>
         </DialogFooter>
       </DialogContent>

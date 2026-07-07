@@ -18,9 +18,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 export default function CreateShopDialog() {
+  const { t } = useTranslation("dashboard");
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const {
@@ -36,7 +38,7 @@ export default function CreateShopDialog() {
     try {
       await createShop(values);
       await queryClient.invalidateQueries({ queryKey: ["shops"] });
-      toast.success("Shop created");
+      toast.success(t("createDialog.created"));
       setOpen(false);
     } catch (e) {
       toastApiError(e);
@@ -52,30 +54,28 @@ export default function CreateShopDialog() {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button>+ Add new</Button>
+        <Button>{t("addNew")}</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create a shop</DialogTitle>
-          <DialogDescription>
-            Give your stall a name. You can take orders once it's set up.
-          </DialogDescription>
+          <DialogTitle>{t("createDialog.title")}</DialogTitle>
+          <DialogDescription>{t("createDialog.description")}</DialogDescription>
         </DialogHeader>
 
         <form id="create-shop-form" onSubmit={handleSubmit(onSubmit)}>
           <fieldset disabled={isSubmitting}>
             <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name">{t("createDialog.nameLabel")}</Label>
               <Input
                 id="name"
-                placeholder="Mario's Tacos"
+                placeholder={t("createDialog.namePlaceholder")}
                 autoFocus
                 aria-invalid={!!errors.name}
                 {...register("name")}
               />
               {errors.name && (
                 <p className="text-sm text-left text-destructive">
-                  {errors.name.message}
+                  {t(errors.name.message ?? "")}
                 </p>
               )}
             </div>
@@ -84,10 +84,12 @@ export default function CreateShopDialog() {
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">{t("common:cancel")}</Button>
           </DialogClose>
           <Button type="submit" form="create-shop-form" disabled={isSubmitting}>
-            {isSubmitting ? "Creating..." : "Create shop"}
+            {isSubmitting
+              ? t("createDialog.submitting")
+              : t("createDialog.submit")}
           </Button>
         </DialogFooter>
       </DialogContent>

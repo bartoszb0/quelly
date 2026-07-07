@@ -5,16 +5,14 @@ import {
 } from "@/api/order";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {
-  ORDER_STATUS_LABEL,
-  ORDER_STATUS_STYLE,
-} from "@/constants/orderStatus";
+import { ORDER_STATUS_STYLE } from "@/constants/orderStatus";
 import { toastApiError } from "@/lib/toastApiError";
 import { cn } from "@/lib/utils";
 import type { Order } from "@/types/Order";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Check, CheckCheck, X } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function OrderConsoleCard({
   order,
@@ -25,6 +23,7 @@ export default function OrderConsoleCard({
   shopId: string;
   shiftId: string;
 }) {
+  const { t } = useTranslation("shop");
   const queryClient = useQueryClient();
   const [confirmCancel, setConfirmCancel] = useState(false);
 
@@ -72,7 +71,7 @@ export default function OrderConsoleCard({
             ORDER_STATUS_STYLE[order.status],
           )}
         >
-          {ORDER_STATUS_LABEL[order.status]}
+          {t(`common:status.${order.status}`)}
         </span>
       </div>
 
@@ -100,7 +99,7 @@ export default function OrderConsoleCard({
               disabled={busy}
             >
               <Check />
-              Ready
+              {t("console.ready")}
             </Button>
           )}
 
@@ -112,7 +111,7 @@ export default function OrderConsoleCard({
               disabled={busy}
             >
               <CheckCheck />
-              Collected
+              {t("console.collected")}
             </Button>
           )}
 
@@ -127,10 +126,10 @@ export default function OrderConsoleCard({
           >
             <X />
             {cancelled.isPending
-              ? "Cancelling..."
+              ? t("console.cancelling")
               : confirmCancel
-                ? "Confirm"
-                : "Cancel"}
+                ? t("console.confirm")
+                : t("console.cancel")}
           </Button>
         </div>
       )}

@@ -1,9 +1,11 @@
 import { getOrder } from "@/api/public";
+import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { QueryError } from "@/components/common/QueryError";
 import { useOrderSocket } from "@/hooks/useOrderSocket";
 import { isValidUuid } from "@/lib/validation";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Navigate, useParams } from "react-router-dom";
 import LiveIndicator from "./components/LiveIndicator";
 import OrderItems from "./components/OrderItems";
@@ -12,6 +14,7 @@ import OrderStatusIcon from "./components/OrderStatusIcon";
 import OrderStatusMessage from "./components/OrderStatusMessage";
 
 export default function GuestOrderPage() {
+  const { t } = useTranslation("guest");
   const { shopPublicId, orderNumber } = useParams();
   const queryClient = useQueryClient();
 
@@ -38,11 +41,14 @@ export default function GuestOrderPage() {
   const isActive = data.status === "QUEUED" || data.status === "READY";
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-sm flex-col items-center justify-center gap-6 px-6 py-12">
+    <div className="relative mx-auto flex min-h-dvh w-full max-w-sm flex-col items-center justify-center gap-6 px-6 py-12">
+      <LanguageSwitcher className="absolute top-4 right-4" />
       <OrderStatusIcon status={data.status} />
 
       <div className="text-center">
-        <p className="text-sm font-medium text-muted-foreground">Your number</p>
+        <p className="text-sm font-medium text-muted-foreground">
+          {t("yourNumber")}
+        </p>
         <p className="mt-1 text-7xl font-bold tracking-tight tabular-nums">
           #{data.number}
         </p>

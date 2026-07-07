@@ -3,9 +3,11 @@ import { QueryError } from "@/components/common/QueryError";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import ShopCard from "./ShopCard";
 
 export default function ShopList() {
+  const { t } = useTranslation("dashboard");
   const { isPending, error, data } = useQuery({
     queryKey: ["shops"],
     queryFn: () => getShops(),
@@ -30,7 +32,7 @@ export default function ShopList() {
   if (data.length === 0) {
     return (
       <p className="py-16 text-center text-sm text-muted-foreground">
-        No shops yet. Add your first one to get started.
+        {t("noShops")}
       </p>
     );
   }

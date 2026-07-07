@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export default function MenuOrdersTabs({
   ordersCount,
@@ -9,6 +10,8 @@ export default function MenuOrdersTabs({
   tab: string;
   setTab: (tab: "orders" | "menu") => void;
 }) {
+  const { t } = useTranslation("shop");
+
   return (
     <div className="flex border-b">
       <button
@@ -20,7 +23,7 @@ export default function MenuOrdersTabs({
             : "border-transparent text-muted-foreground hover:text-foreground",
         )}
       >
-        Menu
+        {t("tabs.menu")}
       </button>
       <button
         onClick={() => setTab("orders")}
@@ -31,7 +34,7 @@ export default function MenuOrdersTabs({
             : "border-transparent text-muted-foreground hover:text-foreground",
         )}
       >
-        Orders ({ordersCount})
+        {t("tabs.orders", { count: ordersCount })}
       </button>
     </div>
   );

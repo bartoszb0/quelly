@@ -1,8 +1,11 @@
 import { signOut } from "@/api/auth";
+import { SUPPORTED_LANGUAGES } from "@/i18n";
 import { toastApiError } from "@/lib/toastApiError";
+import { cn } from "@/lib/utils";
 import { useQueryClient } from "@tanstack/react-query";
-import { User } from "lucide-react";
+import { Check, User } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import {
@@ -15,7 +18,13 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 
+const LANGUAGE_LABELS: Record<string, string> = {
+  pl: "Polski",
+  en: "English",
+};
+
 export default function ProfileDropdown() {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const queryClient = useQueryClient();
@@ -42,7 +51,28 @@ export default function ProfileDropdown() {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuGroup>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>{t("myAccount")}</DropdownMenuLabel>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuLabel className="text-xs text-muted-foreground">
+            {t("language")}
+          </DropdownMenuLabel>
+          {SUPPORTED_LANGUAGES.map((lng) => (
+            <DropdownMenuItem
+              key={lng}
+              className="hover:cursor-pointer"
+              onClick={() => i18n.changeLanguage(lng)}
+            >
+              <Check
+                className={cn(
+                  "size-4",
+                  i18n.resolvedLanguage === lng ? "opacity-100" : "opacity-0",
+                )}
+              />
+              {LANGUAGE_LABELS[lng]}
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
@@ -51,7 +81,7 @@ export default function ProfileDropdown() {
             disabled={isLoading}
             onClick={handleLogout}
           >
-            Log out
+            {t("logOut")}
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

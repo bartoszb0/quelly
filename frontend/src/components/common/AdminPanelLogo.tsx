@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const ASCII = `            __ __
  .-----.--.--.-----|  |  .--.--.
@@ -18,6 +19,7 @@ function scramble() {
 }
 
 export default function Logo() {
+  const { t } = useTranslation("auth");
   const [displayed, setDisplayed] = useState(scramble);
   const resolved = useRef(new Set<number>());
 
@@ -53,7 +55,7 @@ export default function Logo() {
         {displayed}
       </pre>
       <span className="text-xs font-mono text-muted-foreground mt-1 text-center">
-        admin's panel
+        {t("adminPanel")}
       </span>
     </div>
   );

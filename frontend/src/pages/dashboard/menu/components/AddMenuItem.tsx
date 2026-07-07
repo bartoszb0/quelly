@@ -19,9 +19,11 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 export default function AddMenuItem({ shopId }: { shopId: string }) {
+  const { t } = useTranslation("menu");
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
   const {
@@ -37,7 +39,7 @@ export default function AddMenuItem({ shopId }: { shopId: string }) {
     try {
       await createMenuItem(shopId, values);
       await queryClient.invalidateQueries({ queryKey: ["shop-menu", shopId] });
-      toast.success("Menu item added");
+      toast.success(t("addDialog.added"));
       setOpen(false);
     } catch (e) {
       toastApiError(e);
@@ -54,31 +56,29 @@ export default function AddMenuItem({ shopId }: { shopId: string }) {
       <DialogTrigger asChild>
         <Button className="shrink-0">
           <Plus />
-          Add new item
+          {t("addButton")}
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add menu item</DialogTitle>
-          <DialogDescription>
-            Add something guests can order from your stall.
-          </DialogDescription>
+          <DialogTitle>{t("addDialog.title")}</DialogTitle>
+          <DialogDescription>{t("addDialog.description")}</DialogDescription>
         </DialogHeader>
 
         <form id="add-menu-item-form" onSubmit={handleSubmit(onSubmit)}>
           <fieldset disabled={isSubmitting}>
             <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="name">{t("nameLabel")}</Label>
               <Input
                 id="name"
-                placeholder="Cheeseburger"
+                placeholder={t("addDialog.namePlaceholder")}
                 autoFocus
                 aria-invalid={!!errors.name}
                 {...register("name")}
               />
               {errors.name && (
                 <p className="text-sm text-left text-destructive">
-                  {errors.name.message}
+                  {t(errors.name.message ?? "")}
                 </p>
               )}
             </div>
@@ -87,14 +87,14 @@ export default function AddMenuItem({ shopId }: { shopId: string }) {
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">{t("common:cancel")}</Button>
           </DialogClose>
           <Button
             type="submit"
             form="add-menu-item-form"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Adding..." : "Add item"}
+            {isSubmitting ? t("addDialog.submitting") : t("addDialog.submit")}
           </Button>
         </DialogFooter>
       </DialogContent>

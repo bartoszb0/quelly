@@ -1,4 +1,5 @@
 import { fmtTime } from "@/lib/dateFormat";
+import { useTranslation } from "react-i18next";
 
 export default function LiveIndicator({
   isActive,
@@ -7,6 +8,8 @@ export default function LiveIndicator({
   isActive: boolean;
   createdAt: string;
 }) {
+  const { t } = useTranslation("guest");
+
   return (
     <div className="flex flex-col items-center gap-2">
       {isActive && (
@@ -15,11 +18,11 @@ export default function LiveIndicator({
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
             <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
           </span>
-          Updating live
+          {t("updatingLive")}
         </div>
       )}
       <p className="text-xs text-muted-foreground">
-        Placed at {fmtTime(createdAt)}
+        {t("placedAt", { time: fmtTime(createdAt) })}
       </p>
     </div>
   );

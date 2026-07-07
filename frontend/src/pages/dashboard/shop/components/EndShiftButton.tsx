@@ -13,9 +13,11 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { OctagonX } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 export default function EndShiftButton({ shopId }: { shopId: string }) {
+  const { t } = useTranslation("shop");
   const [open, setOpen] = useState(false);
   const queryClient = useQueryClient();
 
@@ -26,11 +28,11 @@ export default function EndShiftButton({ shopId }: { shopId: string }) {
         queryClient.invalidateQueries({ queryKey: ["shop", shopId] }),
         queryClient.invalidateQueries({ queryKey: ["shop-shifts", shopId] }),
       ]);
-      toast.success("Shift ended");
+      toast.success(t("endShift.ended"));
     },
     onError: (e) => {
       console.error(e);
-      toast.error("Could not end shift");
+      toast.error(t("endShift.failed"));
     },
   });
 
@@ -39,27 +41,24 @@ export default function EndShiftButton({ shopId }: { shopId: string }) {
       <DialogTrigger asChild>
         <Button variant="destructive" size="sm">
           <OctagonX />
-          End shift
+          {t("endShift.button")}
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>End this shift?</DialogTitle>
-          <DialogDescription>
-            Any orders still queued or ready will be cancelled. This can't be
-            undone.
-          </DialogDescription>
+          <DialogTitle>{t("endShift.confirmTitle")}</DialogTitle>
+          <DialogDescription>{t("endShift.confirmBody")}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">{t("common:cancel")}</Button>
           </DialogClose>
           <Button
             variant="destructive"
             onClick={() => mutate()}
             disabled={isPending}
           >
-            {isPending ? "Ending..." : "End shift"}
+            {isPending ? t("endShift.ending") : t("endShift.button")}
           </Button>
         </DialogFooter>
       </DialogContent>
