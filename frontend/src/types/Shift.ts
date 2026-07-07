@@ -1,4 +1,5 @@
 import type { Order } from "./Order";
+import type { Pagination } from "./Pagination";
 
 export type Shift = {
   id: string;
@@ -9,6 +10,11 @@ export type Shift = {
 
 export type ShiftListItem = Shift & {
   ordersCount: number;
+};
+
+export type ShiftsPaginated = {
+  shifts: ShiftListItem[];
+  meta: Pagination;
 };
 
 export type ShiftDetail = Shift & {
