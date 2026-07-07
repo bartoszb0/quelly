@@ -58,9 +58,9 @@ export default function QrCustomizer({ shop }: { shop: Shop }) {
   return (
     <div className="mt-6 grid gap-8 lg:grid-cols-[280px_1fr] lg:items-start">
       {/* Full-page A4 preview (mirrors the PDF), sticky so it stays visible while picking a color */}
-      <Card className="mx-auto w-full max-w-[280px] overflow-hidden p-0 shadow-sm lg:sticky lg:top-6">
+      <Card className="mx-auto w-full max-w-70 overflow-hidden p-0 shadow-sm lg:sticky lg:top-6">
         <div
-          className="flex aspect-[210/297] w-full flex-col items-center"
+          className="flex aspect-210/297 w-full flex-col items-center"
           style={{ backgroundColor: colorset.pageBg }}
         >
           <p
