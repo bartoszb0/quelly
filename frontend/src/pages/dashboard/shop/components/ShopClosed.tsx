@@ -5,10 +5,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Play } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import AnalyticsCard from "./AnalyticsCard";
-import MenuItemsCard from "./MenuItemsCard";
-import PastShiftsCard from "./PastShiftsCard";
-import QrCodeCard from "./QrCodeCard";
+import AnalyticsCard from "./cards/AnalyticsCard";
+import MenuItemsCard from "./cards/MenuItemsCard";
+import PastShiftsCard from "./cards/PastShiftsCard";
+import QrCodeCard from "./cards/QrCodeCard";
 
 export default function ShopClosed({ shop }: { shop: Shop }) {
   const { t } = useTranslation("shop");

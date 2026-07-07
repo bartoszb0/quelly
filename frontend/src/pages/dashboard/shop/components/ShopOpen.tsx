@@ -6,10 +6,10 @@ import type { ActiveShift } from "@/types/Shift";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import EndShiftButton from "./EndShiftButton";
-import MenuOrdersTabs from "./MenuOrdersTabs";
-import OrderBuilder from "./OrderBuilder";
-import OrdersSection from "./OrdersSection";
+import EndShiftButton from "./shopOpen/EndShiftButton";
+import MenuOrdersTabs from "./shopOpen/MenuOrdersTabs";
+import OrderBuilder from "./shopOpen/OrderBuilder";
+import OrdersSection from "./shopOpen/OrdersSection";
 
 export default function ShopOpen({
   shift,
