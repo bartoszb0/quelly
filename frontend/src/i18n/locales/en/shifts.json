@@ -1,0 +1,11 @@
+{
+  "title": "Shifts",
+  "empty": "No shifts yet.",
+  "emptyOrders": "No orders yet.",
+  "shiftsCount_one": "{{count}} shift so far",
+  "shiftsCount_other": "{{count}} shifts so far",
+  "ordersLabel_one": "order",
+  "ordersLabel_other": "orders",
+  "ongoing": "ongoing",
+  "inProgress": "In progress"
+}

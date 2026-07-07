@@ -1,0 +1,20 @@
+{
+  "welcomeTo": "Welcome to",
+  "enterNumber": "Enter your order number",
+  "numberPlaceholder": "0",
+  "trackMyOrder": "Track my order",
+  "closed": "Closed",
+  "closedBody": "This stall isn't taking orders right now. Check back when they're open to track your place in line.",
+  "yourNumber": "Your number",
+  "message": {
+    "inQueue": "You're in the queue.",
+    "nextInLine": "You're next in line!",
+    "aheadOfYou_one": "{{count}} order ahead of you.",
+    "aheadOfYou_other": "{{count}} orders ahead of you.",
+    "ready": "Your order is ready - come pick it up!",
+    "collected": "Picked up. Enjoy!",
+    "cancelled": "This order was cancelled."
+  },
+  "updatingLive": "Updating live",
+  "placedAt": "Placed at {{time}}"
+}

@@ -1,0 +1,22 @@
+{
+  "welcomeTo": "Witamy",
+  "enterNumber": "Wpisz numer swojego zamówienia",
+  "numberPlaceholder": "0",
+  "trackMyOrder": "Śledź zamówienie",
+  "closed": "Zamknięte",
+  "closedBody": "To stoisko obecnie nie przyjmuje zamówień. Wróć, gdy będzie otwarte, aby śledzić swoje miejsce w kolejce.",
+  "yourNumber": "Twój numer",
+  "message": {
+    "inQueue": "Jesteś w kolejce.",
+    "nextInLine": "Twoje zamówienie jest następne!",
+    "aheadOfYou_one": "{{count}} zamówienie przed tobą.",
+    "aheadOfYou_few": "{{count}} zamówienia przed tobą.",
+    "aheadOfYou_many": "{{count}} zamówień przed tobą.",
+    "aheadOfYou_other": "{{count}} zamówienia przed tobą.",
+    "ready": "Twoje zamówienie jest gotowe - odbierz je!",
+    "collected": "Odebrane. Smacznego!",
+    "cancelled": "To zamówienie zostało anulowane."
+  },
+  "updatingLive": "Aktualizacja na żywo",
+  "placedAt": "Złożone o {{time}}"
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Menu items",
+  "empty": "No menu items yet.",
+  "itemsCount_one": "{{count}} item on your menu",
+  "itemsCount_other": "{{count}} items on your menu",
+  "addButton": "Add new item",
+  "nameLabel": "Name",
+  "addDialog": {
+    "title": "Add menu item",
+    "description": "Add something guests can order from your stall.",
+    "namePlaceholder": "Cheeseburger",
+    "submit": "Add item",
+    "submitting": "Adding...",
+    "added": "Menu item added"
+  },
+  "editDialog": {
+    "title": "Edit menu item",
+    "description": "Rename this item or remove it from your menu.",
+    "updated": "Menu item updated"
+  },
+  "delete": "Delete",
+  "confirmDelete": "Confirm delete",
+  "deleting": "Deleting...",
+  "deleted": "Menu item deleted"
+}

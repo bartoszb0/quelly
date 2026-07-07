@@ -1,0 +1,43 @@
+{
+  "appTitle": "Quelly — kolejka na żywo dla twojego stoiska",
+  "back": "Wstecz",
+  "loading": "Ładowanie",
+  "cancel": "Anuluj",
+  "close": "Zamknij",
+  "save": "Zapisz",
+  "saving": "Zapisywanie...",
+  "tryAgain": "Spróbuj ponownie",
+  "errorTitle": "Coś poszło nie tak",
+  "errorBody": "Nie udało się tego teraz wczytać. Spróbuj ponownie.",
+  "myAccount": "Moje konto",
+  "logOut": "Wyloguj się",
+  "language": "Język",
+  "status": {
+    "QUEUED": "W kolejce",
+    "READY": "Gotowe",
+    "COLLECTED": "Odebrane",
+    "CANCELLED": "Anulowane"
+  },
+  "apiErrors": {
+    "400": "Nieprawidłowe żądanie. Sprawdź dane i spróbuj ponownie.",
+    "403": "Nie masz uprawnień do tej operacji.",
+    "404": "Nie znaleźliśmy tego, czego szukasz.",
+    "429": "Zbyt wiele żądań. Spróbuj ponownie później.",
+    "500": "Coś poszło nie tak po naszej stronie. Spróbuj ponownie później.",
+    "network": "Błąd sieci. Sprawdź swoje połączenie.",
+    "generic": "Coś poszło nie tak. Spróbuj ponownie."
+  },
+  "validation": {
+    "nameRequired": "Nazwa jest wymagana",
+    "nameTooLong": "Nazwa jest za długa"
+  },
+  "duration": {
+    "hoursMinutes": "{{hours}} godz. {{minutes}} min",
+    "minutes": "{{minutes}} min"
+  },
+  "notFound": {
+    "title": "Nie znaleziono strony",
+    "body": "Ten link może być uszkodzony albo strona została przeniesiona.",
+    "backHome": "Wróć na stronę główną"
+  }
+}

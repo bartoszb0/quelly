@@ -1,0 +1,77 @@
+{
+  "closed": {
+    "title": "No active shift",
+    "body": "Start a shift to begin taking orders. Guests can watch their place in line the moment you do.",
+    "startShift": "Start shift",
+    "started": "Shift started",
+    "startFailed": "Could not start shift"
+  },
+  "cards": {
+    "menuTitle": "Menu items",
+    "menuBody": "Manage what guests can order.",
+    "shiftsTitle": "Past shifts",
+    "shiftsBody": "Review previous service sessions.",
+    "qrTitle": "QR code",
+    "qrBody": "Get QR code for your stall",
+    "qrCustomize": "Customize & download"
+  },
+  "qrDialog": {
+    "title": "QR code",
+    "description": "Pick a color scheme, then download a print-ready PDF for your stall.",
+    "colorScheme": "Color scheme",
+    "scanToTrack": "Scan to track your order live",
+    "previewAlt": "QR code preview",
+    "download": "Download PDF",
+    "preparing": "Preparing...",
+    "pdfFailed": "Could not generate the PDF. Please try again.",
+    "colors": {
+      "Classic": "Classic",
+      "Slate": "Slate",
+      "Indigo": "Indigo",
+      "Forest": "Forest",
+      "Crimson": "Crimson",
+      "Amber": "Amber",
+      "Rose": "Rose",
+      "Sky": "Sky",
+      "Teal": "Teal",
+      "Stone": "Stone",
+      "Midnight": "Midnight",
+      "Charcoal": "Charcoal",
+      "Plum": "Plum",
+      "Pine": "Pine",
+      "Wine": "Wine"
+    }
+  },
+  "tabs": {
+    "menu": "Menu",
+    "orders": "Orders ({{count}})"
+  },
+  "shiftOpenSince": "Shift open · since {{time}}",
+  "endShift": {
+    "button": "End shift",
+    "confirmTitle": "End this shift?",
+    "confirmBody": "Any orders still queued or ready will be cancelled. This can't be undone.",
+    "ending": "Ending...",
+    "ended": "Shift ended",
+    "failed": "Could not end shift"
+  },
+  "builder": {
+    "menuHeading": "Menu",
+    "newOrder": "New order",
+    "tapHint": "Tap menu items to build an order.",
+    "emptyMenu": "No menu items yet.",
+    "placeOrder": "Place order",
+    "numberOnly": "Number only",
+    "placing": "Placing...",
+    "placed": "Order placed",
+    "decreaseQty": "Decrease quantity",
+    "increaseQty": "Increase quantity"
+  },
+  "console": {
+    "ready": "Ready",
+    "collected": "Collected",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "cancelling": "Cancelling..."
+  }
+}

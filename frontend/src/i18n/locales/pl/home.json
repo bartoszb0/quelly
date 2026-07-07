@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "how": "Jak to działa",
+    "features": "Funkcje",
+    "showcase": "Widok na żywo",
+    "logIn": "Zaloguj się",
+    "getStarted": "Rozpocznij"
+  },
+  "hero": {
+    "badge": "Kolejka na żywo dla stoisk gastronomicznych",
+    "title": "Zamień tłum przy ladzie w <highlight>kolejkę na żywo</highlight>.",
+    "subtitle": "Przyjmuj zamówienia, wydawaj numerki, a goście na bieżąco widzą swoje miejsce w kolejce — bez aplikacji, bez konta, bez tłoku przy ladzie. Ty pracujesz w swoim rytmie, oni wiedzą, na czym stoją.",
+    "startFree": "Zacznij za darmo",
+    "seeHow": "Zobacz, jak to działa",
+    "check1": "Bez karty płatniczej",
+    "check2": "Start w 2 minuty",
+    "check3": "Goście nie potrzebują konta"
+  },
+  "stats": {
+    "value1": "0",
+    "label1": "Aplikacji do zainstalowania",
+    "value2": "1 link",
+    "label2": "Na stoisko, do udostępnienia gdziekolwiek",
+    "value3": "<1 s",
+    "label3": "Aktualizacje statusu na żywo",
+    "value4": "∞",
+    "label4": "Zamówień na zmianę"
+  },
+  "how": {
+    "eyebrow": "Jak to działa",
+    "title": "Od zamówienia do odbioru, bez wykrzykiwania",
+    "subtitle": "Quelly prowadzi każde zamówienie przez prosty proces, który goście mogą śledzić na własnym telefonie.",
+    "step1Title": "Rozpocznij zmianę",
+    "step1Body": "Otwórz stoisko jednym dotknięciem. Numery zamówień resetują się i liczą od nowa.",
+    "step2Title": "Przyjmij zamówienie",
+    "step2Body": "Dodaj pozycje, a gość dostaje numerek. Udostępnij link lub kod QR — bez aplikacji i rejestracji.",
+    "step3Title": "Prowadź kolejkę",
+    "step3Body": "Dotknij, aby oznaczyć jako gotowe, potem jako odebrane. Ekran każdego gościa aktualizuje się natychmiast."
+  },
+  "features": {
+    "eyebrow": "Funkcje",
+    "title": "Wszystko, czego potrzebuje stoisko — i nic więcej",
+    "subtitle": "Stworzone dla szybkiej sprzedaży i głodnych tłumów — bez rozdmuchanego POS-a, bez zbędnych bajerów.",
+    "f1Title": "Na żywo, nie na odświeżanie",
+    "f1Body": "Zmiany statusu trafiają do każdego gościa obserwującego stoisko w chwili, gdy dotkniesz przycisku. Bez przeładowań.",
+    "f2Title": "Zero barier dla gości",
+    "f2Body": "Goście po prostu wpisują swój numer na twojej publicznej stronie. Bez pobierania, bez konta, bez e-maila.",
+    "f3Title": "Jeden link na stoisko",
+    "f3Body": "Każde stoisko ma własny publiczny link. Wydrukuj go, zrób z niego QR, udostępnij — zawsze prowadzi do twojej kolejki.",
+    "f4Title": "Czyste zmiany",
+    "f4Body": "Numery są przypisane do sesji sprzedaży, więc resetują się co zmianę i łatwo je wywoływać.",
+    "f5Title": "Twoje dane należą do ciebie",
+    "f5Body": "Panel właściciela jest za bezpiecznym logowaniem; goście widzą tylko to, co niezbędne — swoje zamówienie i miejsce w kolejce.",
+    "f6Title": "Gotowe na godziny szczytu",
+    "f6Body": "Dodawaj pozycje błyskawicznie, przesuwaj kolejkę jednym dotknięciem, a kończąc zmianę zamknij wszystkie otwarte zamówienia naraz."
+  },
+  "showcase": {
+    "eyebrow": "Widok na żywo",
+    "title": "Dwa ekrany, w idealnej synchronizacji",
+    "subtitle": "Ty prowadzisz ladę; oni patrzą z dowolnego miejsca w kolejce. Gdy tylko przesuniesz zamówienie, ich ekran nadąża.",
+    "point1": "Goście widzą swój numer, status i liczbę zamówień przed nimi.",
+    "point2": "Ty widzisz całą kolejkę i przesuwasz zamówienia jednym dotknięciem.",
+    "point3": "Zakończenie zmiany zamyka wszystkie otwarte zamówienia naraz — następnym razem zaczynasz od zera.",
+    "panelTitle": "Kolejka na żywo",
+    "panelMeta": "Tacos u Mario · Zmiana otwarta",
+    "live": "Na żywo"
+  },
+  "mock": {
+    "shopName": "Tacos u Mario",
+    "carnitasTaco": "Taco carnitas",
+    "alPastor": "Al pastor",
+    "burritoBowl": "Burrito bowl",
+    "carnitas": "Carnitas",
+    "quesadilla": "Quesadilla"
+  },
+  "cta": {
+    "title": "Gotowy rozładować tłok przy ladzie?",
+    "body": "Skonfiguruj stoisko, rozpocznij zmianę i wydaj pierwszy numerek w kilka minut. Start jest darmowy.",
+    "createShop": "Utwórz swoje stoisko",
+    "haveOne": "Mam już konto"
+  },
+  "footer": {
+    "rights": "© {{year}} Quelly. Kolejka pod kontrolą.",
+    "logIn": "Zaloguj się",
+    "getStarted": "Rozpocznij"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "title": "Zmiany",
+  "empty": "Brak zmian.",
+  "emptyOrders": "Brak zamówień.",
+  "shiftsCount_one": "Łącznie {{count}} zmiana",
+  "shiftsCount_few": "Łącznie {{count}} zmiany",
+  "shiftsCount_many": "Łącznie {{count}} zmian",
+  "shiftsCount_other": "Łącznie {{count}} zmiany",
+  "ordersLabel_one": "zamówienie",
+  "ordersLabel_few": "zamówienia",
+  "ordersLabel_many": "zamówień",
+  "ordersLabel_other": "zamówienia",
+  "ongoing": "w trakcie",
+  "inProgress": "W trakcie"
+}

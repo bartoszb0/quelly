@@ -1,0 +1,43 @@
+{
+  "appTitle": "Quelly — a live queue for your stall",
+  "back": "Back",
+  "loading": "Loading",
+  "cancel": "Cancel",
+  "close": "Close",
+  "save": "Save",
+  "saving": "Saving...",
+  "tryAgain": "Try again",
+  "errorTitle": "Something went wrong",
+  "errorBody": "We couldn't load this right now. Please try again.",
+  "myAccount": "My Account",
+  "logOut": "Log out",
+  "language": "Language",
+  "status": {
+    "QUEUED": "Queued",
+    "READY": "Ready",
+    "COLLECTED": "Collected",
+    "CANCELLED": "Cancelled"
+  },
+  "apiErrors": {
+    "400": "Invalid request. Please check your input and try again.",
+    "403": "You don't have permission to do that.",
+    "404": "We couldn't find what you were looking for.",
+    "429": "Too many requests. Please try again later.",
+    "500": "Something went wrong on our end. Please try again later.",
+    "network": "Network error. Please check your connection.",
+    "generic": "Something went wrong. Please try again."
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "nameTooLong": "Name is too long"
+  },
+  "duration": {
+    "hoursMinutes": "{{hours}}h {{minutes}}m",
+    "minutes": "{{minutes}}m"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "This link may be broken or the page may have moved.",
+    "backHome": "Back to home"
+  }
+}

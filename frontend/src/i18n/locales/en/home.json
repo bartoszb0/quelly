@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "how": "How it works",
+    "features": "Features",
+    "showcase": "Live view",
+    "logIn": "Log in",
+    "getStarted": "Get started"
+  },
+  "hero": {
+    "badge": "Live queue tracking for food stalls",
+    "title": "Turn your line into a <highlight>live queue</highlight>.",
+    "subtitle": "Take orders, hand out a number, and let guests watch their spot move in real time — no app, no account, no crowd at the counter. You stay in flow; they stay informed.",
+    "startFree": "Start free",
+    "seeHow": "See how it works",
+    "check1": "No card required",
+    "check2": "Live in 2 minutes",
+    "check3": "Guests need no login"
+  },
+  "stats": {
+    "value1": "0",
+    "label1": "Apps to install",
+    "value2": "1 link",
+    "label2": "Per shop, shareable anywhere",
+    "value3": "<1s",
+    "label3": "Live status updates",
+    "value4": "∞",
+    "label4": "Orders per shift"
+  },
+  "how": {
+    "eyebrow": "How it works",
+    "title": "From order to pickup, without the shouting",
+    "subtitle": "Quelly walks every order through a simple flow your guests can follow on their own phone.",
+    "step1Title": "Start a shift",
+    "step1Body": "Open your stall for service in one tap. Order numbers reset cleanly and count up from there.",
+    "step2Title": "Take the order",
+    "step2Body": "Add items, and the guest gets a number. Share your shop link or QR — no app, no sign-up for them.",
+    "step3Title": "Move it along",
+    "step3Body": "Tap to mark Ready, then Collected. Every guest's screen updates instantly over a live connection."
+  },
+  "features": {
+    "eyebrow": "Features",
+    "title": "Everything a stall needs, nothing it doesn't",
+    "subtitle": "Purpose-built for fast counters and hungry crowds — no bloated POS, no clutter.",
+    "f1Title": "Real-time, not refresh",
+    "f1Body": "Status changes broadcast to every guest watching the same shop the moment you tap. No reloads, no polling.",
+    "f2Title": "Zero friction for guests",
+    "f2Body": "Guests just type their number on your public page. No download, no account, no email — they watch and walk up.",
+    "f3Title": "One link per shop",
+    "f3Body": "Every stall gets its own shareable public link. Print it, QR it, post it — it always points to your live queue.",
+    "f4Title": "Clean shifts",
+    "f4Body": "Numbers are scoped to each service session, so they reset every shift and stay easy to call out.",
+    "f5Title": "Your data stays yours",
+    "f5Body": "Owner tools are locked behind secure login; guests only ever see what they need — their order and its place in line.",
+    "f6Title": "Built for the rush",
+    "f6Body": "Add items fast, advance the queue with a tap, and end a shift to clear out anything still open in one move."
+  },
+  "showcase": {
+    "eyebrow": "Live view",
+    "title": "Two screens, perfectly in sync",
+    "subtitle": "You run the counter; they watch from anywhere in line. The instant you advance an order, their screen catches up.",
+    "point1": "Guests see their number, their status, and how many orders are ahead.",
+    "point2": "You see the whole queue and move orders forward with a single tap.",
+    "point3": "Ending a shift clears every open order at once — start fresh next time.",
+    "panelTitle": "Live queue",
+    "panelMeta": "Mario's Tacos · Shift open",
+    "live": "Live"
+  },
+  "mock": {
+    "shopName": "Mario's Tacos",
+    "carnitasTaco": "Carnitas taco",
+    "alPastor": "Al pastor",
+    "burritoBowl": "Burrito bowl",
+    "carnitas": "Carnitas",
+    "quesadilla": "Quesadilla"
+  },
+  "cta": {
+    "title": "Ready to clear the counter?",
+    "body": "Set up your stall, start a shift, and hand out your first number in minutes. Free to get started.",
+    "createShop": "Create your shop",
+    "haveOne": "I already have one"
+  },
+  "footer": {
+    "rights": "© {{year}} Quelly. Queue smarter.",
+    "logIn": "Log in",
+    "getStarted": "Get started"
+  }
+}

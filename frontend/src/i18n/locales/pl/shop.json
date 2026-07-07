@@ -1,0 +1,77 @@
+{
+  "closed": {
+    "title": "Brak aktywnej zmiany",
+    "body": "Rozpocznij zmianę, aby przyjmować zamówienia. Goście od razu będą mogli śledzić swoje miejsce w kolejce.",
+    "startShift": "Rozpocznij zmianę",
+    "started": "Zmiana rozpoczęta",
+    "startFailed": "Nie udało się rozpocząć zmiany"
+  },
+  "cards": {
+    "menuTitle": "Pozycje menu",
+    "menuBody": "Zarządzaj tym, co goście mogą zamówić.",
+    "shiftsTitle": "Poprzednie zmiany",
+    "shiftsBody": "Przeglądaj wcześniejsze sesje sprzedaży.",
+    "qrTitle": "Kod QR",
+    "qrBody": "Pobierz kod QR dla swojego stoiska",
+    "qrCustomize": "Dostosuj i pobierz"
+  },
+  "qrDialog": {
+    "title": "Kod QR",
+    "description": "Wybierz zestaw kolorów i pobierz gotowy do druku plik PDF dla swojego stoiska.",
+    "colorScheme": "Zestaw kolorów",
+    "scanToTrack": "Zeskanuj, aby śledzić zamówienie na żywo",
+    "previewAlt": "Podgląd kodu QR",
+    "download": "Pobierz PDF",
+    "preparing": "Przygotowywanie...",
+    "pdfFailed": "Nie udało się wygenerować PDF-u. Spróbuj ponownie.",
+    "colors": {
+      "Classic": "Klasyczny",
+      "Slate": "Grafitowy",
+      "Indigo": "Indygo",
+      "Forest": "Leśny",
+      "Crimson": "Karmazynowy",
+      "Amber": "Bursztynowy",
+      "Rose": "Różany",
+      "Sky": "Błękitny",
+      "Teal": "Morski",
+      "Stone": "Kamienny",
+      "Midnight": "Północ",
+      "Charcoal": "Węglowy",
+      "Plum": "Śliwkowy",
+      "Pine": "Sosnowy",
+      "Wine": "Winny"
+    }
+  },
+  "tabs": {
+    "menu": "Menu",
+    "orders": "Zamówienia ({{count}})"
+  },
+  "shiftOpenSince": "Zmiana otwarta · od {{time}}",
+  "endShift": {
+    "button": "Zakończ zmianę",
+    "confirmTitle": "Zakończyć tę zmianę?",
+    "confirmBody": "Zamówienia w kolejce lub gotowe zostaną anulowane. Tej operacji nie można cofnąć.",
+    "ending": "Kończenie...",
+    "ended": "Zmiana zakończona",
+    "failed": "Nie udało się zakończyć zmiany"
+  },
+  "builder": {
+    "menuHeading": "Menu",
+    "newOrder": "Nowe zamówienie",
+    "tapHint": "Dotknij pozycji menu, aby utworzyć zamówienie.",
+    "emptyMenu": "Brak pozycji w menu.",
+    "placeOrder": "Złóż zamówienie",
+    "numberOnly": "Sam numer",
+    "placing": "Składanie...",
+    "placed": "Zamówienie złożone",
+    "decreaseQty": "Zmniejsz ilość",
+    "increaseQty": "Zwiększ ilość"
+  },
+  "console": {
+    "ready": "Gotowe",
+    "collected": "Odebrane",
+    "cancel": "Anuluj",
+    "confirm": "Potwierdź",
+    "cancelling": "Anulowanie..."
+  }
+}

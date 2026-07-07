@@ -1,0 +1,14 @@
+{
+  "yourShops": "Twoje stoiska",
+  "addNew": "+ Dodaj nowe",
+  "noShops": "Nie masz jeszcze żadnych stoisk. Dodaj pierwsze, aby zacząć.",
+  "createDialog": {
+    "title": "Utwórz stoisko",
+    "description": "Nadaj swojemu stoisku nazwę. Gdy będzie gotowe, zaczniesz przyjmować zamówienia.",
+    "nameLabel": "Nazwa",
+    "namePlaceholder": "Tacos u Mario",
+    "submit": "Utwórz stoisko",
+    "submitting": "Tworzenie...",
+    "created": "Stoisko utworzone"
+  }
+}

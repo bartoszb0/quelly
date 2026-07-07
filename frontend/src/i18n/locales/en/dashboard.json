@@ -1,0 +1,14 @@
+{
+  "yourShops": "Your shops",
+  "addNew": "+ Add new",
+  "noShops": "No shops yet. Add your first one to get started.",
+  "createDialog": {
+    "title": "Create a shop",
+    "description": "Give your stall a name. You can take orders once it's set up.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Mario's Tacos",
+    "submit": "Create shop",
+    "submitting": "Creating...",
+    "created": "Shop created"
+  }
+}

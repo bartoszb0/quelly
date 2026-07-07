@@ -1,0 +1,27 @@
+{
+  "title": "Pozycje menu",
+  "empty": "Brak pozycji w menu.",
+  "itemsCount_one": "{{count}} pozycja w twoim menu",
+  "itemsCount_few": "{{count}} pozycje w twoim menu",
+  "itemsCount_many": "{{count}} pozycji w twoim menu",
+  "itemsCount_other": "{{count}} pozycji w twoim menu",
+  "addButton": "Dodaj pozycję",
+  "nameLabel": "Nazwa",
+  "addDialog": {
+    "title": "Dodaj pozycję menu",
+    "description": "Dodaj coś, co goście mogą zamówić na twoim stoisku.",
+    "namePlaceholder": "Cheeseburger",
+    "submit": "Dodaj",
+    "submitting": "Dodawanie...",
+    "added": "Pozycja dodana"
+  },
+  "editDialog": {
+    "title": "Edytuj pozycję menu",
+    "description": "Zmień nazwę pozycji albo usuń ją z menu.",
+    "updated": "Pozycja zaktualizowana"
+  },
+  "delete": "Usuń",
+  "confirmDelete": "Potwierdź usunięcie",
+  "deleting": "Usuwanie...",
+  "deleted": "Pozycja usunięta"
+}
