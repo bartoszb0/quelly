@@ -75,7 +75,6 @@ model Order {
   collectedAt  DateTime?
   items        OrderItem[]
 
-  @@unique([shiftId, number]) // numbers unique per shift, reused across shifts
   @@index([shopId])
   @@index([shiftId])
 }
