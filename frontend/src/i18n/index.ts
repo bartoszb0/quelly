@@ -8,6 +8,7 @@ import enDashboard from "./locales/en/dashboard.json";
 import enGuest from "./locales/en/guest.json";
 import enHome from "./locales/en/home.json";
 import enMenu from "./locales/en/menu.json";
+import enQr from "./locales/en/qr.json";
 import enShifts from "./locales/en/shifts.json";
 import enShop from "./locales/en/shop.json";
 import plAuth from "./locales/pl/auth.json";
@@ -16,6 +17,7 @@ import plDashboard from "./locales/pl/dashboard.json";
 import plGuest from "./locales/pl/guest.json";
 import plHome from "./locales/pl/home.json";
 import plMenu from "./locales/pl/menu.json";
+import plQr from "./locales/pl/qr.json";
 import plShifts from "./locales/pl/shifts.json";
 import plShop from "./locales/pl/shop.json";
 
@@ -48,6 +50,7 @@ i18n
         menu: plMenu,
         shifts: plShifts,
         shop: plShop,
+        qr: plQr,
         guest: plGuest,
         home: plHome,
       },
@@ -58,6 +61,7 @@ i18n
         menu: enMenu,
         shifts: enShifts,
         shop: enShop,
+        qr: enQr,
         guest: enGuest,
         home: enHome,
       },
@@ -72,6 +76,7 @@ i18n
       "menu",
       "shifts",
       "shop",
+      "qr",
       "guest",
       "home",
     ],
