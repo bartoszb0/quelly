@@ -1,15 +1,25 @@
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  ORDER_STATUS_LABEL,
+  ORDER_STATUS_STYLE,
+} from "@/constants/orderStatus";
+import { cn } from "@/lib/utils";
+import type { OrderStatus } from "@/types/OrderStatus";
 import {
   ArrowRight,
   Bell,
   Check,
+  CheckCheck,
   ChefHat,
   Clock,
+  Hourglass,
   Link2,
   QrCode,
   Radio,
   ShieldCheck,
   Smartphone,
+  X,
   Zap,
 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -151,82 +161,73 @@ function HeroVisual() {
         aria-hidden
         className="absolute -inset-4 -z-10 rounded-[2rem] bg-foreground/[0.03]"
       />
-      {/* Guest order ticket */}
-      <div className="rounded-3xl border border-border bg-card p-6 shadow-sm">
-        <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <span className="flex items-center gap-1.5">
-            <ChefHat className="size-3.5" />
-            Mario&apos;s Tacos
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-foreground/40" />
-              <span className="relative inline-flex size-2 rounded-full bg-foreground" />
-            </span>
-            Live
-          </span>
+      {/* A faithful mock of the live guest order page. */}
+      <div className="flex flex-col items-center gap-6 rounded-3xl border border-border bg-card px-8 py-10 text-center shadow-sm">
+        {/* Status icon ring */}
+        <div className="flex size-20 items-center justify-center rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400">
+          <Hourglass className="size-9 animate-pulse" />
         </div>
 
-        <div className="mt-6 text-center">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">
-            Your order
+        {/* Order number */}
+        <div>
+          <p className="text-sm font-medium text-muted-foreground">
+            Your number
           </p>
-          <p className="mt-1 text-6xl font-semibold tabular-nums tracking-tight">
+          <p className="mt-1 text-7xl font-bold tracking-tight tabular-nums">
             #42
           </p>
-          <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-xs font-medium">
-            <Clock className="size-3.5" />
-            In the queue
+        </div>
+
+        {/* Status pill + message */}
+        <div className="flex flex-col items-center gap-3">
+          <span className="rounded-full bg-sky-500/10 px-3 py-1 text-sm font-medium text-sky-600 dark:text-sky-400">
+            Queued
           </span>
+          <p className="text-base">3 orders ahead of you.</p>
         </div>
 
-        <div className="mt-6 rounded-2xl bg-secondary/60 p-4 text-center">
-          <p className="text-sm text-muted-foreground">Orders ahead of you</p>
-          <p className="text-3xl font-semibold tabular-nums">3</p>
+        {/* Progress stepper — Queued → Ready → Collected */}
+        <div className="w-full">
+          <div className="flex items-center">
+            <div className="size-3 shrink-0 rounded-full bg-primary" />
+            <div className="h-0.5 flex-1 rounded-full bg-muted" />
+            <div className="size-3 shrink-0 rounded-full bg-muted" />
+            <div className="h-0.5 flex-1 rounded-full bg-muted" />
+            <div className="size-3 shrink-0 rounded-full bg-muted" />
+          </div>
+          <div className="mt-2 flex justify-between text-xs">
+            <span className="font-medium text-foreground">Queued</span>
+            <span className="text-muted-foreground">Ready</span>
+            <span className="text-muted-foreground">Collected</span>
+          </div>
         </div>
 
-        <div className="mt-6 space-y-2">
-          <StatusRow label="Queued" state="done" />
-          <StatusRow label="Ready for pickup" state="active" />
-          <StatusRow label="Collected" state="todo" />
+        {/* Order items */}
+        <div className="w-full rounded-xl border border-border p-4">
+          <ul className="flex flex-col gap-1 text-sm">
+            <li className="flex items-center justify-between gap-4">
+              <span>Carnitas taco</span>
+              <span className="tabular-nums text-muted-foreground">×3</span>
+            </li>
+            <li className="flex items-center justify-between gap-4">
+              <span>Al pastor</span>
+              <span className="tabular-nums text-muted-foreground">×1</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Live indicator */}
+        <div className="flex flex-col items-center gap-2">
+          <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+              <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+            </span>
+            Updating live
+          </div>
+          <p className="text-xs text-muted-foreground">Placed at 12:45</p>
         </div>
       </div>
-    </div>
-  );
-}
-
-function StatusRow({
-  label,
-  state,
-}: {
-  label: string;
-  state: "done" | "active" | "todo";
-}) {
-  return (
-    <div className="flex items-center gap-3">
-      <span
-        className={
-          state === "done"
-            ? "flex size-6 items-center justify-center rounded-full bg-foreground text-background"
-            : state === "active"
-              ? "flex size-6 items-center justify-center rounded-full border-2 border-foreground"
-              : "flex size-6 items-center justify-center rounded-full border-2 border-border"
-        }
-      >
-        {state === "done" && <Check className="size-3.5" />}
-        {state === "active" && (
-          <span className="size-2 rounded-full bg-foreground" />
-        )}
-      </span>
-      <span
-        className={
-          state === "todo"
-            ? "text-sm text-muted-foreground"
-            : "text-sm font-medium"
-        }
-      >
-        {label}
-      </span>
     </div>
   );
 }
@@ -403,24 +404,45 @@ function Showcase() {
           </ul>
         </div>
 
-        {/* Owner queue mock */}
-        <div className="rounded-3xl border border-border bg-card p-6 shadow-sm">
-          <div className="flex items-center justify-between">
+        {/* Owner order board — mirrors the live orders section. */}
+        <div className="rounded-3xl border border-border bg-secondary/30 p-5 shadow-sm">
+          <div className="mb-4 flex items-center justify-between px-1">
             <div>
               <p className="text-sm font-semibold">Live queue</p>
-              <p className="text-xs text-muted-foreground">Mario&apos;s Tacos · Shift open</p>
+              <p className="text-xs text-muted-foreground">
+                Mario&apos;s Tacos · Shift open
+              </p>
             </div>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-2.5 py-1 text-xs font-medium">
-              <span className="size-1.5 rounded-full bg-foreground" />
-              4 in queue
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-1 text-xs font-medium text-muted-foreground">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
+              </span>
+              Live
             </span>
           </div>
 
-          <div className="mt-5 space-y-2">
-            <QueueItem number={40} item="2× Al pastor" state="ready" />
-            <QueueItem number={41} item="Burrito bowl" state="queued" />
-            <QueueItem number={42} item="3× Carnitas" state="queued" />
-            <QueueItem number={43} item="Quesadilla" state="queued" />
+          <div className="grid gap-3 sm:grid-cols-2">
+            <MockOrderCard
+              number={40}
+              status="READY"
+              items={[{ name: "Al pastor", qty: 2 }]}
+            />
+            <MockOrderCard
+              number={41}
+              status="QUEUED"
+              items={[{ name: "Burrito bowl", qty: 1 }]}
+            />
+            <MockOrderCard
+              number={42}
+              status="QUEUED"
+              items={[{ name: "Carnitas", qty: 3 }]}
+            />
+            <MockOrderCard
+              number={43}
+              status="COLLECTED"
+              items={[{ name: "Quesadilla", qty: 1 }]}
+            />
           </div>
         </div>
       </div>
@@ -428,37 +450,64 @@ function Showcase() {
   );
 }
 
-function QueueItem({
+function MockOrderCard({
   number,
-  item,
-  state,
+  status,
+  items,
 }: {
   number: number;
-  item: string;
-  state: "ready" | "queued";
+  status: OrderStatus;
+  items: { name: string; qty: number }[];
 }) {
+  const isTerminal = status === "COLLECTED" || status === "CANCELLED";
+
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-border bg-background p-3">
-      <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-secondary text-sm font-semibold tabular-nums">
-        {number}
-      </span>
-      <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-medium">{item}</p>
-        <p className="text-xs text-muted-foreground">
-          {state === "ready" ? "Ready for pickup" : "In the queue"}
-        </p>
+    <Card className={cn("gap-3 p-4", isTerminal && "opacity-60")}>
+      <div className="flex items-center justify-between gap-4">
+        <p className="font-medium">#{number}</p>
+        <span
+          className={cn(
+            "shrink-0 rounded-full px-2.5 py-1 text-xs font-medium",
+            ORDER_STATUS_STYLE[status],
+          )}
+        >
+          {ORDER_STATUS_LABEL[status]}
+        </span>
       </div>
-      {state === "ready" ? (
-        <span className="inline-flex items-center gap-1 rounded-full bg-foreground px-2.5 py-1 text-xs font-medium text-background">
-          <Bell className="size-3" />
-          Ready
-        </span>
-      ) : (
-        <span className="rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-muted-foreground">
-          Queued
-        </span>
+
+      <ul className="flex flex-col gap-1 text-sm">
+        {items.map((item) => (
+          <li
+            key={item.name}
+            className="flex items-center justify-between gap-4 text-muted-foreground"
+          >
+            <span>{item.name}</span>
+            <span className="tabular-nums">×{item.qty}</span>
+          </li>
+        ))}
+      </ul>
+
+      {!isTerminal && (
+        <div className="flex items-center gap-2">
+          {status === "QUEUED" && (
+            <Button size="sm" className="flex-1" type="button" tabIndex={-1}>
+              <Check />
+              Ready
+            </Button>
+          )}
+          {status === "READY" && (
+            <Button size="sm" className="flex-1" type="button" tabIndex={-1}>
+              <CheckCheck />
+              Collected
+            </Button>
+          )}
+          <Button size="sm" variant="destructive" type="button" tabIndex={-1}>
+            <X />
+            Cancel
+          </Button>
+        </div>
       )}
-    </div>
+    </Card>
   );
 }
 
