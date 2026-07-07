@@ -2,16 +2,19 @@ import z from "zod";
 
 export const registerSchema = z
   .object({
-    email: z.email("Please enter a valid email address").trim(),
+    email: z.email("auth:validation.emailInvalid").trim(),
     password: z
       .string()
       .trim()
-      .min(6, "Password must be at least 6 characters")
-      .max(24, "Password can't be longer than 24 characters"),
-    confirmPassword: z.string().trim().min(1, "Please confirm your password"),
+      .min(6, "auth:validation.passwordMin")
+      .max(24, "auth:validation.passwordMax"),
+    confirmPassword: z
+      .string()
+      .trim()
+      .min(1, "auth:validation.confirmRequired"),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
+    message: "auth:validation.passwordsMismatch",
     path: ["confirmPassword"],
   });
 

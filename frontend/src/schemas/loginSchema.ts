@@ -1,12 +1,12 @@
 import z from "zod";
 
 export const loginSchema = z.object({
-  email: z.email("Please enter a valid email address").trim(),
+  email: z.email("auth:validation.emailInvalid").trim(),
   password: z
     .string()
     .trim()
-    .min(6, "Password must be at least 6 characters")
-    .max(24, "Password can't be longer than 24 characters"),
+    .min(6, "auth:validation.passwordMin")
+    .max(24, "auth:validation.passwordMax"),
 });
 
 export type LoginInput = z.infer<typeof loginSchema>;
