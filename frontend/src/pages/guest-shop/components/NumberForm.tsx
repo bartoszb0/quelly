@@ -28,6 +28,7 @@ export default function NumberForm({ shopPublicId }: { shopPublicId: string }) {
         autoFocus
         value={number}
         onChange={(e) => setNumber(e.target.value.replace(/\D/g, ""))}
+        maxLength={2}
         placeholder={t("numberPlaceholder")}
         className="mt-6 h-28 w-48 border-transparent text-center text-7xl font-bold tracking-widest tabular-nums  focus-visible:ring-0"
       />
