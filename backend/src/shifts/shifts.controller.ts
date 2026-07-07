@@ -5,8 +5,10 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   ParseUUIDPipe,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import type { UUID } from 'crypto';
@@ -47,9 +49,10 @@ export class ShiftsController {
   @Get()
   findAll(
     @Param('shopId', ParseUUIDPipe) shopId: UUID,
+    @Query('page', ParseIntPipe) page: number,
     @CurrentUser() user: UserPayload,
   ) {
-    return this.shiftsService.findAll(shopId, user.id);
+    return this.shiftsService.findAll(shopId, user.id, page);
   }
 
   @Get(':id')

@@ -68,27 +68,40 @@ export class ShiftsService {
     });
   }
 
-  async findAll(shopId: string, userId: string) {
+  async findAll(shopId: string, userId: string, page: number) {
     await this.shopsService.findOne(shopId, userId);
 
-    const shifts = await this.prisma.shift.findMany({
-      where: {
-        shopId: shopId,
-      },
-      orderBy: {
-        startedAt: 'desc',
-      },
-      include: {
-        _count: {
-          select: { orders: true },
-        },
-      },
-    });
+    const pageSize = 10;
 
-    return shifts.map(({ _count, ...shift }) => ({
-      ...shift,
-      ordersCount: _count.orders,
-    }));
+    const [shifts, total] = await this.prisma.$transaction([
+      this.prisma.shift.findMany({
+        where: { shopId },
+        orderBy: { startedAt: 'desc' },
+        include: {
+          _count: {
+            select: { orders: true },
+          },
+        },
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+      }),
+      this.prisma.shift.count({
+        where: { shopId },
+      }),
+    ]);
+
+    return {
+      shifts: shifts.map(({ _count, ...shift }) => ({
+        ...shift,
+        ordersCount: _count.orders,
+      })),
+      meta: {
+        page,
+        pageSize,
+        total,
+        totalPages: Math.ceil(total / pageSize),
+      },
+    };
   }
 
   async findOne(shopId: string, id: string, userId: string) {
