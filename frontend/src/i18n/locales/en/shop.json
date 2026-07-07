@@ -12,7 +12,9 @@
     "shiftsTitle": "Past shifts",
     "shiftsBody": "Review previous service sessions.",
     "qrTitle": "QR code",
-    "qrBody": "Get QR code for your stall"
+    "qrBody": "Get QR code for your stall",
+    "analyticsTitle": "Analytics",
+    "analyticsBody": "Track top sellers and order volume."
   },
   "tabs": {
     "menu": "Menu",

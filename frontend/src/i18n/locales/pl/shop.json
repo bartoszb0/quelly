@@ -12,7 +12,9 @@
     "shiftsTitle": "Poprzednie zmiany",
     "shiftsBody": "Przeglądaj wcześniejsze sesje sprzedaży.",
     "qrTitle": "Kod QR",
-    "qrBody": "Pobierz kod QR dla swojego stoiska"
+    "qrBody": "Pobierz kod QR dla swojego stoiska",
+    "analyticsTitle": "Analityka",
+    "analyticsBody": "Śledź najlepiej sprzedające się produkty i liczbę zamówień."
   },
   "tabs": {
     "menu": "Menu",

@@ -2,6 +2,7 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
+import enAnalytics from "./locales/en/analytics.json";
 import enAuth from "./locales/en/auth.json";
 import enCommon from "./locales/en/common.json";
 import enDashboard from "./locales/en/dashboard.json";
@@ -11,6 +12,7 @@ import enMenu from "./locales/en/menu.json";
 import enQr from "./locales/en/qr.json";
 import enShifts from "./locales/en/shifts.json";
 import enShop from "./locales/en/shop.json";
+import plAnalytics from "./locales/pl/analytics.json";
 import plAuth from "./locales/pl/auth.json";
 import plCommon from "./locales/pl/common.json";
 import plDashboard from "./locales/pl/dashboard.json";
@@ -53,6 +55,7 @@ i18n
         qr: plQr,
         guest: plGuest,
         home: plHome,
+        analytics: plAnalytics,
       },
       en: {
         common: enCommon,
@@ -64,6 +67,7 @@ i18n
         qr: enQr,
         guest: enGuest,
         home: enHome,
+        analytics: enAnalytics,
       },
     },
     lng: initialLanguage(),
@@ -79,6 +83,7 @@ i18n
       "qr",
       "guest",
       "home",
+      "analytics",
     ],
     defaultNS: "common",
     detection: {
