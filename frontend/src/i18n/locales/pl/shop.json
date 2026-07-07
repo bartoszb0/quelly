@@ -12,35 +12,7 @@
     "shiftsTitle": "Poprzednie zmiany",
     "shiftsBody": "Przeglądaj wcześniejsze sesje sprzedaży.",
     "qrTitle": "Kod QR",
-    "qrBody": "Pobierz kod QR dla swojego stoiska",
-    "qrCustomize": "Dostosuj i pobierz"
-  },
-  "qrDialog": {
-    "title": "Kod QR",
-    "description": "Wybierz zestaw kolorów i pobierz gotowy do druku plik PDF dla swojego stoiska.",
-    "colorScheme": "Zestaw kolorów",
-    "scanToTrack": "Zeskanuj, aby śledzić zamówienie na żywo",
-    "previewAlt": "Podgląd kodu QR",
-    "download": "Pobierz PDF",
-    "preparing": "Przygotowywanie...",
-    "pdfFailed": "Nie udało się wygenerować PDF-u. Spróbuj ponownie.",
-    "colors": {
-      "Classic": "Klasyczny",
-      "Slate": "Grafitowy",
-      "Indigo": "Indygo",
-      "Forest": "Leśny",
-      "Crimson": "Karmazynowy",
-      "Amber": "Bursztynowy",
-      "Rose": "Różany",
-      "Sky": "Błękitny",
-      "Teal": "Morski",
-      "Stone": "Kamienny",
-      "Midnight": "Północ",
-      "Charcoal": "Węglowy",
-      "Plum": "Śliwkowy",
-      "Pine": "Sosnowy",
-      "Wine": "Winny"
-    }
+    "qrBody": "Pobierz kod QR dla swojego stoiska"
   },
   "tabs": {
     "menu": "Menu",

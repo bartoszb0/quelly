@@ -12,35 +12,7 @@
     "shiftsTitle": "Past shifts",
     "shiftsBody": "Review previous service sessions.",
     "qrTitle": "QR code",
-    "qrBody": "Get QR code for your stall",
-    "qrCustomize": "Customize & download"
-  },
-  "qrDialog": {
-    "title": "QR code",
-    "description": "Pick a color scheme, then download a print-ready PDF for your stall.",
-    "colorScheme": "Color scheme",
-    "scanToTrack": "Scan to track your order live",
-    "previewAlt": "QR code preview",
-    "download": "Download PDF",
-    "preparing": "Preparing...",
-    "pdfFailed": "Could not generate the PDF. Please try again.",
-    "colors": {
-      "Classic": "Classic",
-      "Slate": "Slate",
-      "Indigo": "Indigo",
-      "Forest": "Forest",
-      "Crimson": "Crimson",
-      "Amber": "Amber",
-      "Rose": "Rose",
-      "Sky": "Sky",
-      "Teal": "Teal",
-      "Stone": "Stone",
-      "Midnight": "Midnight",
-      "Charcoal": "Charcoal",
-      "Plum": "Plum",
-      "Pine": "Pine",
-      "Wine": "Wine"
-    }
+    "qrBody": "Get QR code for your stall"
   },
   "tabs": {
     "menu": "Menu",
