@@ -102,7 +102,7 @@ export class ShiftsService {
       include: {
         orders: {
           orderBy: {
-            number: 'desc',
+            createdAt: 'desc',
           },
           include: {
             items: {
