@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -16,15 +17,39 @@ export class OrdersService {
     private readonly realtimeGateway: RealtimeGateway,
   ) {}
 
-  private async getNextNumber(shiftId: string) {
+  private async getNextNumber(shiftId: string): Promise<number> {
+    const MAX = 99;
+
     const latestOrder = await this.prisma.order.findFirst({
-      where: {
-        shiftId: shiftId,
-      },
-      orderBy: { number: 'desc' },
+      where: { shiftId },
+      orderBy: { createdAt: 'desc' },
+      select: { number: true },
     });
 
-    return !latestOrder ? 1 : latestOrder.number + 1;
+    let candidate = !latestOrder ? 1 : (latestOrder.number % MAX) + 1;
+
+    let attempts = 0;
+
+    while (
+      await this.prisma.order.findFirst({
+        where: {
+          shiftId,
+          number: candidate,
+          status: { in: ['QUEUED', 'READY'] },
+        },
+      })
+    ) {
+      candidate = (candidate % MAX) + 1;
+      attempts++;
+
+      if (attempts >= MAX) {
+        throw new ConflictException(
+          'The active shift already has the maximum number of active orders.',
+        );
+      }
+    }
+
+    return candidate;
   }
 
   async create(shopId: string, createOrderDto: CreateOrderDto, userId: string) {
