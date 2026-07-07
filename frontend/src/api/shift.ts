@@ -1,8 +1,13 @@
-import type { Shift, ShiftDetail, ShiftListItem } from "@/types/Shift";
+import type { Shift, ShiftDetail, ShiftsPaginated } from "@/types/Shift";
 import { api } from "./client";
 
-export const getShifts = async (shopId: string): Promise<ShiftListItem[]> => {
-  const res = await api.get<ShiftListItem[]>(`/shops/${shopId}/shifts`);
+export const getShifts = async (
+  shopId: string,
+  page: number,
+): Promise<ShiftsPaginated> => {
+  const res = await api.get<ShiftsPaginated>(
+    `/shops/${shopId}/shifts?page=${page}`,
+  );
   return res.data;
 };
 
