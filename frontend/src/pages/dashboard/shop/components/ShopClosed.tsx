@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Play } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
+import AnalyticsCard from "./AnalyticsCard";
 import MenuItemsCard from "./MenuItemsCard";
 import PastShiftsCard from "./PastShiftsCard";
 import QrCodeCard from "./QrCodeCard";
@@ -45,12 +46,14 @@ export default function ShopClosed({ shop }: { shop: Shop }) {
       </div>
 
       {/* Setup cards */}
-      <div className="mt-12 grid gap-4 sm:grid-cols-3">
+      <div className="mt-12 grid auto-rows-fr gap-4 sm:grid-cols-2">
         <MenuItemsCard shopId={shop.id} />
 
         <PastShiftsCard shopId={shop.id} />
 
         <QrCodeCard shopId={shop.id} />
+
+        <AnalyticsCard shopId={shop.id} />
       </div>
     </div>
   );
