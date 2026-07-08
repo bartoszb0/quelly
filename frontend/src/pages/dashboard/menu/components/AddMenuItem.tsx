@@ -47,8 +47,8 @@ export default function AddMenuItem({ shopId }: { shopId: string }) {
   };
 
   const handleOpenChange = (next: boolean) => {
+    reset();
     setOpen(next);
-    if (!next) reset();
   };
 
   return (
