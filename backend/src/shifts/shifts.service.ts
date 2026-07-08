@@ -50,24 +50,25 @@ export class ShiftsService {
   async end(shopId: string, userId: string) {
     const currentlyActive = await this.getActiveOrThrow(shopId, userId);
 
-    await this.prisma.order.updateMany({
-      where: {
-        shiftId: currentlyActive.id,
-        status: { in: ['QUEUED', 'READY'] },
-      },
-      data: {
-        status: 'CANCELLED',
-      },
-    });
-
-    const endedShift = await this.prisma.shift.update({
-      data: {
-        endedAt: new Date(),
-      },
-      where: {
-        id: currentlyActive.id,
-      },
-    });
+    const [, endedShift] = await this.prisma.$transaction([
+      this.prisma.order.updateMany({
+        where: {
+          shiftId: currentlyActive.id,
+          status: { in: ['QUEUED', 'READY'] },
+        },
+        data: {
+          status: 'CANCELLED',
+        },
+      }),
+      this.prisma.shift.update({
+        data: {
+          endedAt: new Date(),
+        },
+        where: {
+          id: currentlyActive.id,
+        },
+      }),
+    ]);
 
     const shop = await this.shopsService.findOne(shopId, userId);
     this.realtimeGateway.notifyQueueChange(shop.publicId);
