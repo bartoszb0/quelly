@@ -31,7 +31,11 @@ export default function MenuItem({
         <span className="font-medium wrap-break-word">{item.name}</span>
 
         <div className="absolute inset-y-1 right-1 flex flex-col justify-center gap-1">
-          <MoveButton label={t("moveUp")} disabled={!canMoveUp} onClick={onMoveUp}>
+          <MoveButton
+            label={t("moveUp")}
+            disabled={!canMoveUp}
+            onClick={onMoveUp}
+          >
             <ChevronUp />
           </MoveButton>
           <MoveButton
@@ -63,7 +67,7 @@ function MoveButton({
 }) {
   return (
     <Button
-      variant="ghost"
+      variant="outline"
       size="icon-sm"
       className="text-muted-foreground"
       aria-label={label}
