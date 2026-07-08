@@ -17,10 +17,18 @@ export class MenuItemsService {
     userId: string,
   ) {
     await this.shopsService.findOne(shopId, userId);
+
+    // Place new items at the end of the menu.
+    const { _max } = await this.prisma.menuItem.aggregate({
+      where: { shopId: shopId },
+      _max: { sortOrder: true },
+    });
+
     return this.prisma.menuItem.create({
       data: {
         name: createMenuItemDto.name,
         shopId: shopId,
+        sortOrder: (_max.sortOrder ?? -1) + 1,
       },
     });
   }
@@ -31,6 +39,7 @@ export class MenuItemsService {
       where: {
         shopId: shopId,
       },
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
     });
   }
 
