@@ -7,6 +7,7 @@ export type OffsetPagination = {
 
 export type CursorPagination = {
   pageSize: number;
+  total: number;
   nextCursor: string | null;
   hasNextPage: boolean;
 };

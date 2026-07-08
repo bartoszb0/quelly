@@ -35,7 +35,7 @@ export default function ShopOpen({
       ) : (
         <div className="flex flex-col gap-6">
           <MenuOrdersTabs
-            ordersCount={data.orders.length}
+            ordersCount={data.meta.total}
             tab={tab}
             setTab={setTab}
           />
