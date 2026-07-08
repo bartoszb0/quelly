@@ -5,6 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { RealtimeGateway } from '../realtime/realtime.gateway';
 import { ShopsService } from '../shops/shops.service';
 
 @Injectable()
@@ -12,6 +13,7 @@ export class ShiftsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly shopsService: ShopsService,
+    private readonly realtimeGateway: RealtimeGateway,
   ) {}
 
   async getActive(shopId: string, userId: string) {
@@ -58,7 +60,7 @@ export class ShiftsService {
       },
     });
 
-    return this.prisma.shift.update({
+    const endedShift = await this.prisma.shift.update({
       data: {
         endedAt: new Date(),
       },
@@ -66,6 +68,11 @@ export class ShiftsService {
         id: currentlyActive.id,
       },
     });
+
+    const shop = await this.shopsService.findOne(shopId, userId);
+    this.realtimeGateway.notifyQueueChange(shop.publicId);
+
+    return endedShift;
   }
 
   async findAll(shopId: string, userId: string, page: number) {
