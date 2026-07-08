@@ -11,5 +11,7 @@
   "ordersLabel_many": "zamówień",
   "ordersLabel_other": "zamówienia",
   "ongoing": "w trakcie",
-  "inProgress": "W trakcie"
+  "inProgress": "W trakcie",
+  "loadMore": "Załaduj więcej",
+  "loadingMore": "Ładowanie..."
 }

@@ -7,5 +7,7 @@
   "ordersLabel_one": "order",
   "ordersLabel_other": "orders",
   "ongoing": "ongoing",
-  "inProgress": "In progress"
+  "inProgress": "In progress",
+  "loadMore": "Load more",
+  "loadingMore": "Loading..."
 }
