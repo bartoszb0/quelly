@@ -33,3 +33,14 @@ export const deleteMenuItem = async (
 ): Promise<void> => {
   await api.delete(`/shops/${shopId}/menu-items/${id}`);
 };
+
+export const reorderMenuItems = async (
+  shopId: string,
+  ids: string[],
+): Promise<MenuItem[]> => {
+  const res = await api.patch<MenuItem[]>(
+    `/shops/${shopId}/menu-items/reorder`,
+    { ids },
+  );
+  return res.data;
+};
