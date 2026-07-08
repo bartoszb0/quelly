@@ -30,7 +30,7 @@ export default function MenuItem({
       >
         <span className="font-medium wrap-break-word">{item.name}</span>
 
-        <div className="absolute inset-y-1 right-1 flex flex-col justify-center gap-1">
+        <div className="absolute inset-y-1 right-1 flex flex-col justify-center gap-1 mr-1">
           <MoveButton
             label={t("moveUp")}
             disabled={!canMoveUp}
