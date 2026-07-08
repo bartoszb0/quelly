@@ -1,5 +1,5 @@
 import type { Order } from "./Order";
-import type { OffsetPagination } from "./Pagination";
+import type { CursorPagination, OffsetPagination } from "./Pagination";
 
 export type Shift = {
   id: string;
@@ -17,8 +17,10 @@ export type ShiftsPaginated = {
   meta: OffsetPagination;
 };
 
-export type ShiftDetail = Shift & {
+export type ShiftDetail = {
+  shift: Shift;
   orders: Order[];
+  meta: CursorPagination;
 };
 
 export type ActiveShift = {
