@@ -59,9 +59,10 @@ export class ShiftsController {
   findOne(
     @Param('shopId', ParseUUIDPipe) shopId: UUID,
     @Param('id', ParseUUIDPipe) id: UUID,
+    @Query('cursor') cursor: UUID,
     @CurrentUser() user: UserPayload,
   ) {
-    return this.shiftsService.findOne(shopId, id, user.id);
+    return this.shiftsService.findOne(shopId, id, user.id, cursor);
   }
 
   @Delete(':id')

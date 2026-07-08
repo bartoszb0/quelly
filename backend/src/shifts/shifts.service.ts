@@ -104,35 +104,54 @@ export class ShiftsService {
     };
   }
 
-  async findOne(shopId: string, id: string, userId: string) {
+  async findOne(shopId: string, id: string, userId: string, cursor?: string) {
     await this.shopsService.findOne(shopId, userId);
+
+    const pageSize = 20;
 
     const shift = await this.prisma.shift.findFirst({
       where: {
         shopId: shopId,
         id: id,
       },
+    });
+
+    if (!shift) throw new NotFoundException('Could not find this shift');
+
+    const orders = await this.prisma.order.findMany({
+      where: {
+        shopId: shopId,
+        shiftId: shift.id,
+      },
+      orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+      take: pageSize + 1,
+      ...(cursor && {
+        skip: 1,
+        cursor: { id: cursor },
+      }),
       include: {
-        orders: {
-          orderBy: {
-            createdAt: 'desc',
-          },
-          include: {
-            items: {
-              select: {
-                id: true,
-                nameSnapshot: true,
-                quantity: true,
-              },
-            },
+        items: {
+          select: {
+            id: true,
+            nameSnapshot: true,
+            quantity: true,
           },
         },
       },
     });
 
-    if (!shift) throw new NotFoundException('Could not find this shift');
+    const hasNextPage = orders.length > pageSize;
+    const items = hasNextPage ? orders.slice(0, pageSize) : orders;
 
-    return shift;
+    return {
+      shift,
+      orders: items,
+      meta: {
+        pageSize,
+        nextCursor: hasNextPage ? items[items.length - 1].id : null,
+        hasNextPage,
+      },
+    };
   }
 
   // TODO think if this is even needed
