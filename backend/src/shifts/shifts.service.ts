@@ -73,7 +73,7 @@ export class ShiftsService {
 
     const pageSize = 10;
 
-    const [shifts, total] = await this.prisma.$transaction([
+    const [shifts, total] = await Promise.all([
       this.prisma.shift.findMany({
         where: { shopId },
         orderBy: { startedAt: 'desc' },
@@ -118,27 +118,35 @@ export class ShiftsService {
 
     if (!shift) throw new NotFoundException('Could not find this shift');
 
-    const orders = await this.prisma.order.findMany({
-      where: {
-        shopId: shopId,
-        shiftId: shift.id,
-      },
-      orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
-      take: pageSize + 1,
-      ...(cursor && {
-        skip: 1,
-        cursor: { id: cursor },
-      }),
-      include: {
-        items: {
-          select: {
-            id: true,
-            nameSnapshot: true,
-            quantity: true,
+    const [orders, total] = await Promise.all([
+      this.prisma.order.findMany({
+        where: {
+          shopId: shopId,
+          shiftId: shift.id,
+        },
+        orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+        take: pageSize + 1,
+        ...(cursor && {
+          skip: 1,
+          cursor: { id: cursor },
+        }),
+        include: {
+          items: {
+            select: {
+              id: true,
+              nameSnapshot: true,
+              quantity: true,
+            },
           },
         },
-      },
-    });
+      }),
+      this.prisma.order.count({
+        where: {
+          shopId: shopId,
+          shiftId: shift.id,
+        },
+      }),
+    ]);
 
     const hasNextPage = orders.length > pageSize;
     const items = hasNextPage ? orders.slice(0, pageSize) : orders;
@@ -148,6 +156,7 @@ export class ShiftsService {
       orders: items,
       meta: {
         pageSize,
+        total,
         nextCursor: hasNextPage ? items[items.length - 1].id : null,
         hasNextPage,
       },
