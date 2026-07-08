@@ -21,5 +21,7 @@
   "delete": "Delete",
   "confirmDelete": "Confirm delete",
   "deleting": "Deleting...",
-  "deleted": "Menu item deleted"
+  "deleted": "Menu item deleted",
+  "moveUp": "Move up",
+  "moveDown": "Move down"
 }
