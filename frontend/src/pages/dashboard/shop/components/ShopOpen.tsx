@@ -1,11 +1,13 @@
 import { getShift } from "@/api/shift";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import { QueryError } from "@/components/common/QueryError";
+import { SHOP_SUB_PAGES } from "@/constants/subPages";
 import { fmtTime } from "@/lib/dateFormat";
 import type { ActiveShift } from "@/types/Shift";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import MiniCard from "./cards/MiniCard";
 import EndShiftButton from "./shopOpen/EndShiftButton";
 import MenuOrdersTabs from "./shopOpen/MenuOrdersTabs";
 import OrderBuilder from "./shopOpen/OrderBuilder";
@@ -58,6 +60,11 @@ export default function ShopOpen({
               </div>
               <EndShiftButton shopId={shopId} />
             </div>
+          </div>
+          <div className="flex flex-col gap-2">
+            {SHOP_SUB_PAGES.map((subPage) => (
+              <MiniCard key={subPage.path} shopId={shopId} subPage={subPage} />
+            ))}
           </div>
         </div>
       )}

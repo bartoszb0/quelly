@@ -1,14 +1,12 @@
 import { startShift } from "@/api/shift";
 import { Button } from "@/components/ui/button";
+import { SHOP_SUB_PAGES } from "@/constants/subPages";
 import type { Shop } from "@/types/Shop";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Play } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
-import AnalyticsCard from "./cards/AnalyticsCard";
-import MenuItemsCard from "./cards/MenuItemsCard";
-import PastShiftsCard from "./cards/PastShiftsCard";
-import QrCodeCard from "./cards/QrCodeCard";
+import BigCard from "./cards/BigCard";
 
 export default function ShopClosed({ shop }: { shop: Shop }) {
   const { t } = useTranslation("shop");
@@ -47,13 +45,9 @@ export default function ShopClosed({ shop }: { shop: Shop }) {
 
       {/* Setup cards */}
       <div className="mt-12 grid auto-rows-fr gap-4">
-        <MenuItemsCard shopId={shop.id} />
-
-        <PastShiftsCard shopId={shop.id} />
-
-        <QrCodeCard shopId={shop.id} />
-
-        <AnalyticsCard shopId={shop.id} />
+        {SHOP_SUB_PAGES.map((subPage) => (
+          <BigCard key={subPage.path} shopId={shop.id} subPage={subPage} />
+        ))}
       </div>
     </div>
   );
