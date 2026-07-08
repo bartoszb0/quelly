@@ -60,11 +60,15 @@ export default function ShopOpen({
               </div>
               <EndShiftButton shopId={shopId} />
             </div>
-          </div>
-          <div className="flex flex-col gap-2">
-            {SHOP_SUB_PAGES.map((subPage) => (
-              <MiniCard key={subPage.path} shopId={shopId} subPage={subPage} />
-            ))}
+            <div className="flex flex-col gap-2">
+              {SHOP_SUB_PAGES.map((subPage) => (
+                <MiniCard
+                  key={subPage.path}
+                  shopId={shopId}
+                  subPage={subPage}
+                />
+              ))}
+            </div>
           </div>
         </div>
       )}
