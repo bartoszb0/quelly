@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { ShopSubPage } from "@/constants/subPages";
+import type { ShopSubPage } from "@/types/SubPage";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
