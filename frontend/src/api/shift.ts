@@ -14,8 +14,11 @@ export const getShifts = async (
 export const getShift = async (
   shopId: string,
   shiftId: string,
+  cursor?: string | null,
 ): Promise<ShiftDetail> => {
-  const res = await api.get<ShiftDetail>(`/shops/${shopId}/shifts/${shiftId}`);
+  const res = await api.get<ShiftDetail>(`/shops/${shopId}/shifts/${shiftId}`, {
+    params: cursor ? { cursor } : undefined,
+  });
   return res.data;
 };
 
