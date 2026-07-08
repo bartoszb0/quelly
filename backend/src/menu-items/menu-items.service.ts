@@ -75,6 +75,21 @@ export class MenuItemsService {
     });
   }
 
+  async reorder(shopId: string, ids: string[], userId: string) {
+    await this.shopsService.findOne(shopId, userId);
+
+    await this.prisma.$transaction(
+      ids.map((id, index) =>
+        this.prisma.menuItem.update({
+          where: { id: id, shopId: shopId },
+          data: { sortOrder: index },
+        }),
+      ),
+    );
+
+    return this.findAll(shopId, userId);
+  }
+
   async remove(shopId: string, id: string, userId: string) {
     await this.findOne(shopId, id, userId);
     await this.prisma.menuItem.delete({

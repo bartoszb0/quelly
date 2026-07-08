@@ -16,6 +16,7 @@ import { JwtGuard } from '../auth/guards/jwt.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 import type { UserPayload } from '../common/types/user-payload.type';
 import { CreateMenuItemDto } from './dto/create-menu-item.dto';
+import { ReorderMenuItemsDto } from './dto/reorder-menu-items.dto';
 import { UpdateMenuItemDto } from './dto/update-menu-item.dto';
 import { MenuItemsService } from './menu-items.service';
 
@@ -48,6 +49,19 @@ export class MenuItemsController {
     @CurrentUser() user: UserPayload,
   ) {
     return this.menuItemsService.findOne(shopId, id, user.id);
+  }
+
+  @Patch('reorder')
+  reorder(
+    @Param('shopId', ParseUUIDPipe) shopId: UUID,
+    @Body() reorderMenuItemsDto: ReorderMenuItemsDto,
+    @CurrentUser() user: UserPayload,
+  ) {
+    return this.menuItemsService.reorder(
+      shopId,
+      reorderMenuItemsDto.ids,
+      user.id,
+    );
   }
 
   @Patch(':id')
