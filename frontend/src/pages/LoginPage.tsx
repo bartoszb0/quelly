@@ -1,5 +1,6 @@
 import { signIn } from "@/api/auth";
 import AdminPanelLogo from "@/components/common/AdminPanelLogo";
+import DemoBtn from "@/components/common/DemoBtn";
 import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +15,7 @@ import { toastApiError } from "@/lib/toastApiError";
 import { loginSchema, type LoginInput } from "@/schemas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
@@ -22,6 +24,7 @@ export default function LoginPage() {
   const { t } = useTranslation("auth");
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const [isDemoPending, setIsDemoPending] = useState(false);
   const {
     register,
     handleSubmit,
@@ -30,11 +33,15 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
 
+  const logIn = async (values: LoginInput) => {
+    const user = await signIn(values);
+    queryClient.setQueryData(["me"], user);
+    navigate("/dashboard", { replace: true });
+  };
+
   const onSubmit = async (values: LoginInput) => {
     try {
-      const user = await signIn(values);
-      queryClient.setQueryData(["me"], user);
-      navigate("/dashboard", { replace: true });
+      await logIn(values);
     } catch (e) {
       toastApiError(e, { 401: t("errors.invalidCredentials") });
     }
@@ -48,7 +55,7 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent>
           <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
-            <fieldset disabled={isSubmitting}>
+            <fieldset disabled={isSubmitting || isDemoPending}>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-2">
                   <Label htmlFor="email">{t("email")}</Label>
@@ -90,10 +97,16 @@ export default function LoginPage() {
             type="submit"
             form="login-form"
             className="w-full"
-            disabled={isSubmitting}
+            disabled={isSubmitting || isDemoPending}
           >
             {t("logIn")}
           </Button>
+          <DemoBtn
+            logIn={logIn}
+            isSubmitting={isSubmitting}
+            isDemoPending={isDemoPending}
+            setIsDemoPending={setIsDemoPending}
+          />
           <Link
             to="/register"
             className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
