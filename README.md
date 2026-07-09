@@ -94,30 +94,8 @@ Then open `http://localhost:5173`, register, create a shop, start a shift - and 
 
 A React SPA talks to a NestJS REST API (axios, cookie-credentialed) and to a Socket.IO gateway on the same server. Postgres sits behind Prisma. The app has two distinct surfaces: an authenticated **owner dashboard**, and a **public guest surface** that is keyed by an unguessable `publicId` - internal database ids never appear in guest-facing URLs or sockets. When an order changes status, the API broadcasts a bare "something changed" event to that shop's socket room; guest pages respond by refetching, so the socket never carries data that would need its own auth.
 
-```mermaid
-flowchart LR
-    subgraph Clients["Users - one React 19 + Vite SPA"]
-        Owner["Owner Dashboard<br/>(authenticated)"]
-        Guest["Guest Page<br/>(no login)"]
-    end
+<img width="2523" height="2351" alt="architecture" src="https://github.com/user-attachments/assets/f6f25b41-e8f6-4bb3-86a9-6e96fcf36b10" />
 
-    subgraph Server["NestJS 11 Server"]
-        REST["REST API modules<br/>auth · shops · menu-items<br/>shifts · orders · analytics"]
-        Public["Public API<br/>(guest, read-only)"]
-        WS["Socket.IO Gateway<br/>room shop:&lt;publicId&gt;"]
-    end
-
-    DB[("PostgreSQL")]
-
-    Owner -- "REST + JWT cookie · shop id" --> REST
-    Guest -- "read-only REST · publicId" --> Public
-    Guest -- "join room shop:&lt;publicId&gt;" --> WS
-    WS -. "queueChange (no payload)" .-> Guest
-    Guest -- "refetch over HTTP" --> Public
-    REST -- "order status change" --> WS
-    REST -- "Prisma" --> DB
-    Public -- "Prisma" --> DB
-```
 
 Full endpoint list, schema, and design decisions: [docs/TECHNICAL_OVERVIEW.md](docs/TECHNICAL_OVERVIEW.md).
 
