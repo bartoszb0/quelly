@@ -1,1 +1,26 @@
-{}
+{
+  "title": "Analityka",
+  "empty": "Brak danych. Analityka pojawi się, gdy zaczniesz przyjmować zamówienia.",
+  "stats": {
+    "totalOrders": "Wszystkie zamówienia",
+    "collected": "Odebrane",
+    "cancelled": "Anulowane",
+    "completionRate": "Wskaźnik realizacji",
+    "cancellationRate": "Wskaźnik anulowań",
+    "totalShifts": "Liczba zmian",
+    "avgOrdersPerShift": "Śr. zamówień / zmianę",
+    "itemsSold": "Sprzedane pozycje",
+    "avgItemsPerOrder": "Śr. pozycji / zamówienie"
+  },
+  "topSellers": {
+    "title": "Bestsellery",
+    "sold": "Sprzedano"
+  },
+  "outcomes": {
+    "title": "Wyniki zamówień",
+    "completion": "odebrane",
+    "collected": "Odebrane",
+    "cancelled": "Anulowane",
+    "active": "W trakcie"
+  }
+}

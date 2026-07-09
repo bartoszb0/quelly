@@ -1,1 +1,26 @@
-{}
+{
+  "title": "Analytics",
+  "empty": "No data yet. Analytics will appear once you start taking orders.",
+  "stats": {
+    "totalOrders": "Total orders",
+    "collected": "Collected",
+    "cancelled": "Cancelled",
+    "completionRate": "Completion rate",
+    "cancellationRate": "Cancellation rate",
+    "totalShifts": "Shifts run",
+    "avgOrdersPerShift": "Avg orders / shift",
+    "itemsSold": "Items sold",
+    "avgItemsPerOrder": "Avg items / order"
+  },
+  "topSellers": {
+    "title": "Top sellers",
+    "sold": "Sold"
+  },
+  "outcomes": {
+    "title": "Order outcomes",
+    "completion": "completed",
+    "collected": "Collected",
+    "cancelled": "Cancelled",
+    "active": "In progress"
+  }
+}
