@@ -4,7 +4,7 @@
 
 Quelly is a full-stack web app for small food vendors (festival stalls, food trucks, kebab shops). The owner opens a "shift", takes orders, and taps each one through _queued → ready → collected_. Every order gets a short number; the guest types it in (or scans the stall's QR code) and sees a live status page that updates the moment the kitchen does - powered by WebSockets, not refresh-spamming.
 
-**Live demo**: https://quelly.vercel.app/
+**Live demo**: https://quelly.vercel.app/ - click **"Try the demo account"** on the login page, no signup needed. _(Free-tier hosting: the first request can take up to a minute while the API wakes up.)_
 
 ---
 
@@ -44,7 +44,7 @@ I wanted one project that goes past CRUD-tutorial territory: real-time updates, 
 | **Auth**         | Passport-JWT, httpOnly cookie, bcrypt             | Token never touchable by JS (XSS-safe by construction); throttled login     |
 | **Validation**   | class-validator (API) + Zod (forms)               | Every request body validated at the door on both sides                      |
 | **i18n**         | i18next                                           | Full EN/PL translation, browser-language detection                          |
-| **Deployment**   | Frontend on Vercel, Backend on Render, DB on Neon | Postgres runs via `docker compose` for local dev                            |
+| **Deployment**   | Frontend on Vercel, Backend on Render, DB on Neon | Free tiers all the way down; local dev uses `docker compose` Postgres instead |
 
 ---
 
@@ -53,7 +53,7 @@ I wanted one project that goes past CRUD-tutorial territory: real-time updates, 
 Prerequisites: Node 20+, Docker (for Postgres).
 
 ```bash
-git clone <repo-url> && cd quelly
+git clone https://github.com/bartoszb0/quelly.git && cd quelly
 
 # 1. Database
 cd backend
@@ -94,16 +94,29 @@ Then open `http://localhost:5173`, register, create a shop, start a shift - and 
 
 A React SPA talks to a NestJS REST API (axios, cookie-credentialed) and to a Socket.IO gateway on the same server. Postgres sits behind Prisma. The app has two distinct surfaces: an authenticated **owner dashboard**, and a **public guest surface** that is keyed by an unguessable `publicId` - internal database ids never appear in guest-facing URLs or sockets. When an order changes status, the API broadcasts a bare "something changed" event to that shop's socket room; guest pages respond by refetching, so the socket never carries data that would need its own auth.
 
-```
- Owner (browser)                    Guest (phone, no login)
-   │  REST + cookie                    │  REST (public, read-only)
-   ▼                                   ▼
-┌─────────────────── NestJS API ───────────────────┐
-│  auth · shops · menu · shifts · orders · analytics│
-│  Socket.IO: room per shop ──── "queueChange" ─────┼──▶ guests refetch
-└───────────────────────┬───────────────────────────┘
-                        ▼  Prisma
-                    PostgreSQL
+```mermaid
+flowchart LR
+    subgraph Clients["Users - one React 19 + Vite SPA"]
+        Owner["Owner Dashboard<br/>(authenticated)"]
+        Guest["Guest Page<br/>(no login)"]
+    end
+
+    subgraph Server["NestJS 11 Server"]
+        REST["REST API modules<br/>auth · shops · menu-items<br/>shifts · orders · analytics"]
+        Public["Public API<br/>(guest, read-only)"]
+        WS["Socket.IO Gateway<br/>room shop:&lt;publicId&gt;"]
+    end
+
+    DB[("PostgreSQL")]
+
+    Owner -- "REST + JWT cookie · shop id" --> REST
+    Guest -- "read-only REST · publicId" --> Public
+    Guest -- "join room shop:&lt;publicId&gt;" --> WS
+    WS -. "queueChange (no payload)" .-> Guest
+    Guest -- "refetch over HTTP" --> Public
+    REST -- "order status change" --> WS
+    REST -- "Prisma" --> DB
+    Public -- "Prisma" --> DB
 ```
 
 Full endpoint list, schema, and design decisions: [docs/TECHNICAL_OVERVIEW.md](docs/TECHNICAL_OVERVIEW.md).
