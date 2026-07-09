@@ -9,6 +9,7 @@ import { PublicModule } from './public/public.module';
 import { RealtimeModule } from './realtime/realtime.module';
 import { ShiftsModule } from './shifts/shifts.module';
 import { ShopsModule } from './shops/shops.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ShopsModule } from './shops/shops.module';
     OrdersModule,
     PublicModule,
     RealtimeModule,
+    AnalyticsModule,
   ],
   controllers: [],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],
